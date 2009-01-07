@@ -31,9 +31,9 @@
     ! Fn + F1
     keycode 134 = XF86Search
     ! Fn + F2
-    keycode 135 = XF86Start
+    keycode 193 = XF86Start
     ! Fn + F3
-    keycode 140 = XF86HomePage
+    keycode 241 = XF86HomePage
     ! Fn + F5 - Display Toggle
     !keycode 191 =
     ! Fn + F7 - Touchpad Disable

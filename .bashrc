@@ -22,7 +22,7 @@ shopt -s extglob
 shopt -s cmdhist
 shopt -s checkwinsize
 shopt -s no_empty_cmd_completion
-shopt -u promptvars
+shopt -s promptvars
 set -o noclobber
 #kill flow control
 if tty -s ; then
@@ -177,7 +177,6 @@ else
     PS1="\[\033[0;33m\]\u@\h\[\033[01;34m\] \W \n\$ \[\033[0m\]"
 fi
 
-export PROMPT_COMMAND='echo -ne "\033]2;$LOGNAME@$HOSTNAME    $PWD\007\033]1;$LOGNAME@$HOST\007"'
 
 #}}}
 #{{{ GNU Screen Login greeting
