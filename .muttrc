@@ -5,7 +5,7 @@ source ~/secret/mutt.gmail
 #set smtp_url="smtps://USERNAME@[domain]:PASSWORD@smtp.gmail.com/"
 #set imap_pass = 'PASSWORD'
 #set from = 'EMAIL@address'
-set realname="Volodymer Grigorenko"
+set realname="Volodymyr Grigorenko"
 set folder = "imaps://imap.gmail.com"
 set record="imaps://imap.gmail.com/[Google Mail]/Sent Mail"
 set postponed="imaps://imap.gmail.com/[Google Mail]/Drafts"

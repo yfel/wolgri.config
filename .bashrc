@@ -13,6 +13,7 @@ export LANG=uk_UA.UTF-8
 export LC_ALL=uk_UA.UTF-8
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export EDITOR="vim"
+export MOZ_DISABLE_PANGO=1
 #}}}
 
 eval `dircolors -b ~/.dircolors`
@@ -193,6 +194,7 @@ if [ "$TERM" = "screen" -a ! "$SHOWED_SCREEN_MESSAGE" = "true" ]; then
   export SHOWED_SCREEN_MESSAGE="true"
 fi
 #}}}
+
 #{{{ linux console colours - ala Phrakture
 if [ "$TERM" = "linux" ]; then
     echo -en "\e]P0222222" #black

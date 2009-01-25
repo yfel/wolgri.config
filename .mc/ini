@@ -77,7 +77,7 @@ editor_backup_extension=~
 
 [Layout]
 equal_split=1
-first_panel_size=23
+first_panel_size=26
 message_visible=0
 keybar_visible=0
 xterm_title=0
@@ -89,7 +89,7 @@ permission_mode=1
 filetype_mode=1
 
 [Dirs]
-other_dir=/home/wolgri/Desktop
+other_dir=/
 current_is_left=1
 
 [New Left Panel]

@@ -4,8 +4,8 @@ keybinding({ modkey }, "F5", function () client.focus.fullscreen = not client.fo
 keybinding({ modkey }, "w", function () client.focus:kill() end):add()
 keybinding({ modkey }, "Left", function () awful.client.focus.byidx(1); client.focus:raise() end):add()
 keybinding({ modkey }, "Right", function () awful.client.focus.byidx(-1);  client.focus:raise() end):add()
-keybinding({ modkey, "Shift" }, "Left", function () awful.client.swap.byidx(1) end):add()
-keybinding({ modkey, "Shift" }, "Right", function () awful.client.swap(-1) end):add()
+--keybinding({ modkey, "Shift" }, "Left", function () awful.client.swap.byidx(1) end):add()
+--keybinding({ modkey, "Shift" }, "Right", function () awful.client.swap(-1) end):add()
 keybinding({ modkey, "Control" }, "Left", function () awful.screen.focus(1) end):add()
 keybinding({ modkey, "Control" }, "Right", function () awful.screen.focus(-1) end):add()
 keybinding({ modkey }, "Down", function () awful.tag.incmwfact(0.05) end):add()
@@ -14,8 +14,30 @@ keybinding({ modkey, "Shift" }, "Up", function () awful.tag.incnmaster(1) end):a
 keybinding({ modkey, "Shift" }, "Down", function () awful.tag.incnmaster(-1) end):add()
 keybinding({ modkey, "Control" }, "Up", function () awful.tag.incncol(1) end):add()
 keybinding({ modkey, "Control" }, "Down", function () awful.tag.incncol(-1) end):add()
+keybinding({"Control"}, "Escape", function () awful.util.spawn(xlock) end):add()
+
+keybinding({ modkey, "Shift" }, "Left", function () awful.client.focus.byidx(1); client.focus:lower() end):add()
+keybinding({ modkey, "Shift" }, "Right", function () awful.client.focus.byidx(1); client.focus:raise() end):add()
+
+keybinding({ modkey }, "F3", function () awful.util.spawn("mocp -G") end):add()
+
+
+
 --}}}
---{{{ Fn keys 
+--{{{ Move resize 
+--keybinding({ modkey, "Control" }, "Up", function () awful.client.moveresize(0, 0, 0, -10) end):add()
+--keybinding({ modkey, "Control" }, "Right", function () awful.client.moveresize(0, 0, 10, 0) end):add()
+--keybinding({ modkey, "Control" }, "Down", function () awful.client.moveresize(0, 0, 0, 10) end):add()
+--keybinding({ modkey, "Control" }, "Left", function () awful.client.moveresize(0, 0, -10, 0) end):add()
+--
+--keybinding({ modkey, "Mod1" }, "Up", function () awful.client.moveresize(0, -10, 0, 0) end):add()
+--keybinding({ modkey, "Mod1" }, "Right", function () awful.client.moveresize(10, 0, 0, 0) end):add()
+--keybinding({ modkey, "Mod1" }, "Down", function () awful.client.moveresize(0, 10, 0, 0) end):add()
+--keybinding({ modkey, "Mod1" }, "Left", function () awful.client.moveresize(-10, 0, 0, 0) end):add()
+
+
+--}}}
+--{{{ Fn keys  
 keybinding( {none}, "XF86AudioMute", function () awful.util.spawn("amixer -c 0 set Master toggle") end):add()
 keybinding( {none}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixset +") end):add()
 keybinding( {none}, "XF86AudioLowerVolume", function () awful.util.spawn("amixset -") end):add()
@@ -91,7 +113,7 @@ max_value = 100
 
 --}}}
 --{{{ skb
-skbwidget = widget({ type = 'textbox', name = 'skbwidget' , align = 'right' })
+skbwidget = widget({ type = 'textbox', name = 'skbwidget' , align = 'left' })
 --}}}
 --{{{ temp
 tempwidget = widget({ type = 'textbox', name = 'cfreqwidget' , align = 'right' })
@@ -186,6 +208,7 @@ botbox = {}
 botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "18", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
+     skbwidget,
      battarywidget,
      tempwidget,tb_spacer,
      cfreqwidget,tb_spacer,
@@ -198,7 +221,7 @@ botbox[1].widgets = {
 botbox[1].screen = 1
 
 --}}}
--- {{{ My hooks
+--  {{{ My hooks
 --{{{ cpu
 cpu0_total = 0
 cpu0_active = 0
@@ -401,14 +424,14 @@ function splitbywhitespace(str)
      return values
 end
 --}}}
---{{{ Set My some hooks
+--{ {{ Set My some hooks
 
 function onesec()
     hook_timer()
     get_mem()
     get_cpu()
     get_cfreq()
---    get_skb()
+    get_skb()
 end
 
 function fivesec()
