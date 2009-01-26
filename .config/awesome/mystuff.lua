@@ -1,59 +1,61 @@
 --{{{ Base keybindings 
-keybinding({ modkey }, "F2", revelation.revelation):add()
-keybinding({ modkey }, "F5", function () client.focus.fullscreen = not client.focus.fullscreen end):add()
-keybinding({ modkey }, "w", function () client.focus:kill() end):add()
-keybinding({ modkey }, "Left", function () awful.client.focus.byidx(1); client.focus:raise() end):add()
-keybinding({ modkey }, "Right", function () awful.client.focus.byidx(-1);  client.focus:raise() end):add()
---keybinding({ modkey, "Shift" }, "Left", function () awful.client.swap.byidx(1) end):add()
---keybinding({ modkey, "Shift" }, "Right", function () awful.client.swap(-1) end):add()
-keybinding({ modkey, "Control" }, "Left", function () awful.screen.focus(1) end):add()
-keybinding({ modkey, "Control" }, "Right", function () awful.screen.focus(-1) end):add()
-keybinding({ modkey }, "Down", function () awful.tag.incmwfact(0.05) end):add()
-keybinding({ modkey }, "Up", function () awful.tag.incmwfact(-0.05) end):add()
-keybinding({ modkey, "Shift" }, "Up", function () awful.tag.incnmaster(1) end):add()
-keybinding({ modkey, "Shift" }, "Down", function () awful.tag.incnmaster(-1) end):add()
-keybinding({ modkey, "Control" }, "Up", function () awful.tag.incncol(1) end):add()
-keybinding({ modkey, "Control" }, "Down", function () awful.tag.incncol(-1) end):add()
-keybinding({"Control"}, "Escape", function () awful.util.spawn(xlock) end):add()
+--keybinding({ modkey }, "F2", revelation.revelation):add()
+table.insert(globalkeys, key({ modkey }, "F5", function () client.focus.fullscreen = not client.focus.fullscreen end))
+table.insert(clientkeys, key({ modkey }, "w", function (c) c:kill() end))
 
-keybinding({ modkey, "Shift" }, "Left", function () awful.client.focus.byidx(1); client.focus:lower() end):add()
-keybinding({ modkey, "Shift" }, "Right", function () awful.client.focus.byidx(1); client.focus:raise() end):add()
+table.insert(globalkeys, key({ modkey }, "Left", function () awful.client.focus.byidx(1); if client.focus then client.focus:raise() end end))
+table.insert(globalkeys, key({ modkey }, "Right", function () awful.client.focus.byidx(-1);  if client.focus then client.focus:raise() end end))
+table.insert(globalkeys, key({ modkey, "Shift" }, "Left", function () awful.client.swap.byidx(1) end))
+table.insert(globalkeys, key({ modkey, "Shift" }, "Right", function () awful.client.swap.byidx(-1) end))
+table.insert(globalkeys, key({ modkey, "Control" }, "Left", function () awful.screen.focus(1) end))
+table.insert(globalkeys, key({ modkey, "Control" }, "Right", function () awful.screen.focus(-1) end))
 
-keybinding({ modkey }, "F3", function () awful.util.spawn("mocp -G") end):add()
+table.insert(globalkeys, key({ modkey }, "Up", function () awful.tag.incmwfact(0.05) end))
+table.insert(globalkeys, key({ modkey }, "Down", function () awful.tag.incmwfact(-0.05) end))
+table.insert(globalkeys, key({ modkey, "Shift" }, "Down", function () awful.tag.incnmaster(1) end))
+table.insert(globalkeys, key({ modkey, "Shift" }, "Up", function () awful.tag.incnmaster(-1) end))
+table.insert(globalkeys, key({ modkey, "Control" }, "Down", function () awful.tag.incncol(1) end))
+table.insert(globalkeys, key({ modkey, "Control" }, "Up", function () awful.tag.incncol(-1) end))
+
+
+table.insert(globalkeys, key({"Control"}, "Escape", function () awful.util.spawn(xlock) end))
+
+table.insert(globalkeys, key({ modkey, "Shift" }, "Left", function () awful.client.focus.byidx(1); client.focus:lower() end))
+table.insert(globalkeys, key({ modkey, "Shift" }, "Right", function () awful.client.focus.byidx(1); client.focus:raise() end))
+
+table.insert(globalkeys, key({ modkey }, "F3", function () awful.util.spawn("mocp -G") end))
 
 
 
 --}}}
 --{{{ Move resize 
---keybinding({ modkey, "Control" }, "Up", function () awful.client.moveresize(0, 0, 0, -10) end):add()
---keybinding({ modkey, "Control" }, "Right", function () awful.client.moveresize(0, 0, 10, 0) end):add()
---keybinding({ modkey, "Control" }, "Down", function () awful.client.moveresize(0, 0, 0, 10) end):add()
---keybinding({ modkey, "Control" }, "Left", function () awful.client.moveresize(0, 0, -10, 0) end):add()
---
---keybinding({ modkey, "Mod1" }, "Up", function () awful.client.moveresize(0, -10, 0, 0) end):add()
---keybinding({ modkey, "Mod1" }, "Right", function () awful.client.moveresize(10, 0, 0, 0) end):add()
---keybinding({ modkey, "Mod1" }, "Down", function () awful.client.moveresize(0, 10, 0, 0) end):add()
---keybinding({ modkey, "Mod1" }, "Left", function () awful.client.moveresize(-10, 0, 0, 0) end):add()
-
-
+--table.insert(globalkeys, key({ modkey, "Control" }, "Up", function () awful.client.moveresize(0, 0, 0, -10) end))
+--table.insert(globalkeys, key({ modkey, "Control" }, "Right", function () awful.client.moveresize(0, 0, 10, 0) end))
+--table.insert(globalkeys, key({ modkey, "Control" }, "Down", function () awful.client.moveresize(0, 0, 0, 10) end))
+--table.insert(globalkeys, key({ modkey, "Control" }, "Left", function () awful.client.moveresize(0, 0, -10, 0) end))
+----
+--table.insert(globalkeys, key({ modkey, "Mod1" }, "Up", function () awful.client.moveresize(0, -10, 0, 0) end))
+--table.insert(globalkeys, key({ modkey, "Mod1" }, "Right", function () awful.client.moveresize(10, 0, 0, 0) end))
+--table.insert(globalkeys, key({ modkey, "Mod1" }, "Down", function () awful.client.moveresize(0, 10, 0, 0) end))
+--table.insert(globalkeys, key({ modkey, "Mod1" }, "Left", function () awful.client.moveresize(-10, 0, 0, 0) end))
 --}}}
 --{{{ Fn keys  
-keybinding( {none}, "XF86AudioMute", function () awful.util.spawn("amixer -c 0 set Master toggle") end):add()
-keybinding( {none}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixset +") end):add()
-keybinding( {none}, "XF86AudioLowerVolume", function () awful.util.spawn("amixset -") end):add()
-keybinding( {none}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end):add()
-keybinding( {none}, "XF86AudioNext", function () awful.util.spawn("mpc next") end):add()
-keybinding( {none}, "XF86AudioStop", function () awful.util.spawn("mpc stop ") end):add()
-keybinding( {none}, "XF86AudioPrev", function () awful.util.spawn("mpc prev ") end):add()
-keybinding( {none}, "XF86Sleep", function () awful.util.spawn("sudo pm-suspend --quirk-dpms-on --quirk-vbestate-restore --quirk-vbemode-restore") end):add()
-keybinding( {none}, "XF86HomePage", function () awful.util.spawn("sudo cpufreq-set -g ondemand") end):add()
-keybinding( {none}, "XF86Start", function () awful.util.spawn("sudo cpufreq-set -g powersave") end):add()
-keybinding( {none}, "XF86WWW", function () awful.util.spawn("swiftfox") end):add()
-keybinding( {none}, "XF86Mail", function () awful.util.spawn("urxvt -e mutt") end):add()
-keybinding( {none}, "XF86Messenger", function () mymainmenu:toggle() end):add()
+table.insert(globalkeys, key({none}, "XF86AudioMute", function () awful.util.spawn("amixer -c 0 set Master toggle") end))
+table.insert(globalkeys, key({none}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixset +") end))
+table.insert(globalkeys, key({none}, "XF86AudioLowerVolume", function () awful.util.spawn("amixset -") end))
+table.insert(globalkeys, key({none}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end))
+table.insert(globalkeys, key({none}, "XF86AudioNext", function () awful.util.spawn("mpc next") end))
+table.insert(globalkeys, key({none}, "XF86AudioStop", function () awful.util.spawn("mpc stop ") end))
+table.insert(globalkeys, key({none}, "XF86AudioPrev", function () awful.util.spawn("mpc prev ") end))
+table.insert(globalkeys, key({none}, "XF86Sleep", function () awful.util.spawn("sudo pm-suspend --quirk-dpms-on --quirk-vbestate-restore --quirk-vbemode-restore") end))
+table.insert(globalkeys, key({none}, "XF86HomePage", function () awful.util.spawn("sudo cpufreq-set -g ondemand") end))
+table.insert(globalkeys, key({none}, "XF86Start", function () awful.util.spawn("sudo cpufreq-set -g powersave") end))
+table.insert(globalkeys, key({none}, "XF86WWW", function () awful.util.spawn("swiftfox") end))
+table.insert(globalkeys, key({none}, "XF86Mail", function () awful.util.spawn("urxvt -e mutt") end))
+table.insert(globalkeys, key({none}, "XF86Messenger", function () mymainmenu:toggle() end))
 --}}}
 --{{{ rotate clients and focus master...
-keybinding({ modkey }, "Tab", function ()
+table.insert(globalkeys, key({ modkey }, "Tab", function ()
     local allclients = awful.client.visible(client.focus.screen)
   
     for i,v in ipairs(allclients) do
@@ -62,10 +64,10 @@ keybinding({ modkey }, "Tab", function ()
       end
     end
     awful.client.focus.byidx(-1)
-  end):add()
+  end))
 
 -- ... the other way 'round!
-keybinding({ modkey, "Shift" }, "Tab", function ()
+table.insert(globalkeys, key({ modkey, "Shift" }, "Tab", function ()
     local allclients = awful.client.visible(client.focus.screen)
     local toswap
 
@@ -78,8 +80,9 @@ keybinding({ modkey, "Shift" }, "Tab", function ()
       end
     end
     awful.client.focus.byidx(-1)
-  end):add()
+  end))
 --}}}
+root.keys(globalkeys)
 --{{{ My widgets
 --{{{ Spacer
 local bg_color = beautiful.bg_normal
@@ -202,13 +205,13 @@ ratewidget = widget({ type = 'textbox', name = 'ratewidget',align = 'right' })
   datew = widget({type = 'textbox',name = 'datew',align = "right"  })
 --}}}
 --}}}
---{{{ Bottom panel
+-- {{{ Bottom panel
 -- Create a botbox for each screen and add it
 botbox = {}
 botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "18", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
-     skbwidget,
+--     skbwidget,
      battarywidget,
      tempwidget,tb_spacer,
      cfreqwidget,tb_spacer,
@@ -397,7 +400,7 @@ end
 --{{{ date hook 
 function hook_timer ()
     os.setlocale(os.getenv("LC_ALL"))
-    datew.text ="<bg color=\"gray30\"/><span font_desc=\"sans bold 8\" color=\"white\">"..os.date('%a %d %b  %H:%M').."</span>"
+    datew.text ="<span font_desc=\"sans bold 8\" color=\"white\">"..os.date('%a %d %b  %H:%M').."</span>"
 end
 -- }}}
 -- {{{ splitbywhitespace stolen from wicked.lua
@@ -431,7 +434,7 @@ function onesec()
     get_mem()
     get_cpu()
     get_cfreq()
-    get_skb()
+--    get_skb()
 end
 
 function fivesec()
@@ -443,7 +446,6 @@ end
 
 awful.hooks.timer.register(1, onesec)
 awful.hooks.timer.register(5, fivesec)
---}}}
 --}}}
 --{{{ Naughty Callendar 
  local calendar = nil

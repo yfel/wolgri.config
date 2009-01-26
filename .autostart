@@ -18,5 +18,4 @@ wicd-client&
 #fuse.sh restart
 www&
 wmname LG3D
-
 /usr/bin/gnome-screensaver  --no-daemon

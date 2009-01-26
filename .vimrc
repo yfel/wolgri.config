@@ -17,6 +17,7 @@ set novisualbell
 set termencoding=utf-8 
 set autoindent 
 set backspace=indent,eol,start 
+set fdm=marker
 syntax on
 " KEys
 ino <Down> <C-O>gj

@@ -28,17 +28,16 @@ apptags =
 layouts ={}
 layouts =
 {
-    "tile",
---    "tileleft",
---    "tilebottom",
-    "tiletop",
-    "fairh",
---    "fairv",
---    "magnifier",
-    "max",
---    "fullscreen",
---    "spiral",
---    "dwindle",
-    "floating"
+    awful.layout.suit.tile,
+--    awful.layout.suit.tile.left,
+--    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
+    awful.layout.suit.fair,
+--    awful.layout.suit.fair.horizontal,
+    awful.layout.suit.max,
+--    awful.layout.suit.max.fullscreen,
+--    awful.layout.suit.magnifier,
+    awful.layout.suit.floating
 }
+
 -- vim: set filetype=lua fdm=marker tabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent nu:
