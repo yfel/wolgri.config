@@ -231,7 +231,7 @@ ratewidget = widget({ type = 'textbox', name = 'ratewidget',align = 'right' })
 -- {{{ Bottom panel
 -- Create a botbox for each screen and add it
 botbox = {}
-botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "18", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
+botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "14", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
 --     skbwidget,

@@ -151,7 +151,7 @@ for s = 1, screen.count() do
                                               end, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = wibox({ position = "top", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
+    mywibox[s] = wibox({ position = "top", fg = beautiful.fg_normal, bg = beautiful.bg_normal , height = "16"})
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = { mylauncher,
                            mytaglist[s],

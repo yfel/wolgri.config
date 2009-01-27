@@ -2,8 +2,8 @@
 #{{{
 style "my-default"
 {
-#    engine "mist" { } 
-     engine "hcengine" { edge_thickness=1 } 
+    engine "mist" { } 
+#     engine "hcengine" { edge_thickness=1 } 
 
 #{{{ Options
   GtkScrolledWindow::scrollbar-spacing = 0
@@ -71,27 +71,27 @@ style "my-default"
 
 #{{{ Colors
 
-    fg[ACTIVE] = "gray80" # Light Gray
-    fg[SELECTED] = "white" # White
-    fg[NORMAL] = "gray80" # Light Gray
+    fg[ACTIVE] = "gray20" # Light Gray
+    fg[SELECTED] = "black" # White
+    fg[NORMAL] = "gray20" # Light Gray
     fg[PRELIGHT] = "black" # White
-    fg[INSENSITIVE] = "gray60" # 3D Shadow
+    fg[INSENSITIVE] = "gray30" # 3D Shadow
  
-    bg[ACTIVE] = "gray30" # Dark Gray
-    bg[SELECTED] = "gray80" # Dark Gray
-    bg[NORMAL] = "gray20" # Basic 3D Hilight
-    bg[PRELIGHT] = "gray65" # Gray Hilight
-    bg[INSENSITIVE] = "gray40" # Basic 3D Hilight
+    bg[ACTIVE] = "gray70" # Dark Gray
+    bg[SELECTED] = "gray40" # Dark Gray
+    bg[NORMAL] = "gray80" # Basic 3D Hilight
+    bg[PRELIGHT] = "gray45" # Gray Hilight
+    bg[INSENSITIVE] = "gray60" # Basic 3D Hilight
  
-    base[ACTIVE] = "gray10" # Basic 3D Dark
-    base[SELECTED] = "gray80" # Dark Gray
-    base[NORMAL] = "gray25" # White - Gray
+    base[ACTIVE] = "gray90" # Basic 3D Dark
+    base[SELECTED] = "gray40" # Dark Gray
+    base[NORMAL] = "gray75" # White - Gray
     base[PRELIGHT] = "gray50" # Dark Gray
-    base[INSENSITIVE] = "gray80" # Gray Medium
+    base[INSENSITIVE] = "gray20" # Gray Medium
  
-    text[ACTIVE] = "gray90" # Light Gray
+    text[ACTIVE] = "gray10" # Light Gray
     text[SELECTED] = "black" # Light Gray
-    text[NORMAL] = "gray80" # Black
+    text[NORMAL] = "gray10" # Black
     text[PRELIGHT] = "white" # White
     text[INSENSITIVE] = "gray10" # 3D Shadow
  
@@ -105,7 +105,7 @@ style "my-frame"
 {
     xthickness = 0
     ythickness = 0
-    GtkButton::default_border = { 5, 5, 5, 5 }
+    GtkButton::default_border = { 1, 1, 1, 1 }
 }
 
 style "my-tooltips" 
@@ -117,10 +117,17 @@ style "my-tooltips"
 
 style "my-progressbar"
 {
-    bg[NORMAL] = "gray25"
+    bg[NORMAL] = "red"
     bg[PRELIGHT] = "green"
-    fg[PRELIGHT] = "green"
-  
+    base[SELECTED] = "green"
+    text[ACTIVE] = "gray90" 
+    text[SELECTED] = "black"
+    text[NORMAL] = "black"
+    text[PRELIGHT] = "black"
+    text[INSENSITIVE] = "black"
+    xthickness = 1
+    ythickness = 1
+
 }
 #}}}
 
