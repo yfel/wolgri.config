@@ -1,0 +1,52 @@
+-------------------------------
+--    "Wolgri" awesome theme    --
+-------------------------------
+# If you want SVGs and extras, get them from garoth.com/awesome/sky-theme
+
+# BASICS
+font          = sans bold 8
+
+bg_focus      = gray45
+bg_normal     = gray30
+bg_urgent     = gray45
+
+fg_normal     = gray80
+fg_focus      = gray90
+fg_urgent     = 
+
+border_width  = 2
+border_normal = grey70
+border_focus  = gray30
+border_marked = orange
+
+# IMAGES
+layout_fairh = /home/wolgri/.config/awesome/themes/wolgri/layouts/fairh.png
+layout_fairv = /home/wolgri/.config/awesome/themes/wolgri/layouts/fairv.png
+layout_floating = /home/wolgri/.config/awesome/themes/wolgri/layouts/floating.png
+layout_magnifier = /home/wolgri/.config/awesome/themes/wolgri/layouts/magnifier.png
+layout_max = /home/wolgri/.config/awesome/themes/wolgri/layouts/max.png
+layout_fullscreen = /home/wolgri/.config/awesome/themes/wolgri/layouts/fullscreen.png
+layout_tilebottom = /home/wolgri/.config/awesome/themes/wolgri/layouts/tilebottom.png
+layout_tileleft = /home/wolgri/.config/awesome/themes/wolgri/layouts/tileleft.png
+layout_tile = /home/wolgri/.config/awesome/themes/wolgri/layouts/tile.png
+layout_tiletop = /home/wolgri/.config/awesome/themes/wolgri/layouts/tiletop.png
+layout_vilebottom = /home/wolgri/.config/awesome/themes/wolgri/layouts/vilebottom.png
+layout_vileleft = /home/wolgri/.config/awesome/themes/wolgri/layouts/vileleft.png
+layout_vile = /home/wolgri/.config/awesome/themes/wolgri/layouts/vile.png
+layout_viletop = /home/wolgri/.config/awesome/themes/wolgri/layouts/viletop.png
+
+awesome_icon = /home/wolgri/.config/awesome/themes/wolgri/awesome-icon.png
+tasklist_floating_icon = /home/wolgri/.config/awesome/themes/wolgri/layouts/floating.png
+
+# from default for now...
+menu_submenu_icon = /usr/share/awesome/themes/default/submenu.png
+taglist_squares_sel = /usr/share/awesome/themes/default/taglist/squarefw.png
+taglist_squares_unsel = /usr/share/awesome/themes/default/taglist/squarew.png
+
+# MISC
+wallpaper_cmd = xsetroot -solid '#222222'
+
+taglist_squares = true
+titlebar_close_button = true
+menu_height   = 15
+menu_width    = 100
