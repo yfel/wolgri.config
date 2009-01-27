@@ -1,3 +1,22 @@
+--{{{ Naugty
+naughty.config.timeout          = 5
+naughty.config.screen           = 1
+naughty.config.position         = "bottom_right"
+naughty.config.margin           = 4
+naughty.config.height           = 16
+naughty.config.width            = 300
+naughty.config.gap              = 1
+naughty.config.ontop            = true
+naughty.config.font             = beautiful.font or "Verdana 8"
+naughty.config.icon             = nil
+naughty.config.icon_size        = 16
+naughty.config.fg               = beautiful.fg_focus or '#ffffff'
+naughty.config.bg               = beautiful.bg_focus or '#535d6c'
+naughty.config.border_color     = beautiful.border_focus or '#535d6c'
+naughty.config.border_width     = 1
+naughty.config.hover_timeout    = nil
+
+--}}}
 --{{{ Base keybindings 
 --keybinding({ modkey }, "F2", revelation.revelation):add()
 table.insert(globalkeys, key({ modkey }, "F5", function () client.focus.fullscreen = not client.focus.fullscreen end))
@@ -41,8 +60,8 @@ table.insert(globalkeys, key({ modkey }, "F3", function () awful.util.spawn("moc
 --}}}
 --{{{ Fn keys  
 table.insert(globalkeys, key({none}, "XF86AudioMute", function () awful.util.spawn("amixer -c 0 set Master toggle") end))
-table.insert(globalkeys, key({none}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixset +") end))
-table.insert(globalkeys, key({none}, "XF86AudioLowerVolume", function () awful.util.spawn("amixset -") end))
+--table.insert(globalkeys, key({none}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixset +") end))
+--table.insert(globalkeys, key({none}, "XF86AudioLowerVolume", function () awful.util.spawn("amixset -") end))
 table.insert(globalkeys, key({none}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end))
 table.insert(globalkeys, key({none}, "XF86AudioNext", function () awful.util.spawn("mpc next") end))
 table.insert(globalkeys, key({none}, "XF86AudioStop", function () awful.util.spawn("mpc stop ") end))
@@ -126,51 +145,54 @@ cfreqwidget = widget({ type = 'textbox', name = 'cfreqwidget' , align = 'right' 
 --}}}
 --{{{ Cpu
 
-cpu0graphwidget = widget({ type = 'graph', name = 'cpu0graphwidget', align = 'right' }) 
-cpu0graphwidget.height = 1
-cpu0graphwidget.width = 100
-cpu0graphwidget.bg = beautiful.bg_normal
+cpu0graphwidget = widget({ type = 'graph', name = 'cpu0graphwidget', align = 'left' }) 
+cpu0graphwidget.height = 0.8
+cpu0graphwidget.width = 60
+cpu0graphwidget.bg = beautiful.bg_focus
 cpu0graphwidget.border_color = beautiful.fg_urgent
 cpu0graphwidget.grow = 'left'
 
 cpu0graphwidget:plot_properties_set('cpu', { 
-fg = beautiful.bg_urgent,
+fg = beautiful.border_marked,
 style ='line',
---fg_center = 'green', 
---fg_end = 'cyan', 
-vertical_gradient = false 
+fg_center = 'green', 
+fg_end = 'cyan', 
+vertical_gradient = true 
 })
-cpu1graphwidget = widget({ type = 'graph', name = 'cpu1graphwidget', align = 'right' }) 
-cpu1graphwidget.height = 1
-cpu1graphwidget.width = 100
-cpu1graphwidget.bg = beautiful.bg_normal
+cpu1graphwidget = widget({ type = 'graph', name = 'cpu1graphwidget', align = 'left' }) 
+cpu1graphwidget.height = 0.8
+cpu1graphwidget.width = 60
+cpu1graphwidget.bg = beautiful.bg_focus
 cpu1graphwidget.border_color = beautiful.fg_urgent
 cpu1graphwidget.grow = 'left'
 
-cpu1graphwidget:plot_properties_set('cpu', { 
-fg = beautiful.bg_urgent,
+cpu0graphwidget:plot_properties_set('cpu', { 
+fg = beautiful.border_marked,
 style ='line',
---fg_center = 'green', 
---fg_end = 'cyan', 
-vertical_gradient = false 
+fg_center = 'green', 
+fg_end = 'cyan', 
+vertical_gradient = true 
 })
 --}}}
 --{{{MeM 
-memwidget = widget({ type = 'graph', name = 'memwidget', align = 'right' })
+memwidget = widget({ type = 'progressbar', name = 'memwidget', align = 'left' })
 
-memwidget.width = 80
-memwidget.height = 1
-memwidget.gap = 0
+memwidget.width = 40
+memwidget.height = 0.6
+memwidget.gap = 1
 memwidget.border_padding = 0
-memwidget.border_width = 0
---memwidget.ticks_count = 0
---memwidget.ticks_gap = 0
+memwidget.border_width = 1
+memwidget.ticks_count = 10
+memwidget.ticks_gap = 1
 memwidget.vertical = false
 memwidget.grow = "left"
-memwidget:plot_properties_set('mem', { 
-fg = beautiful.fg_urgent,
---style ='line',
-vertical_gradient = false 
+memwidget:bar_properties_set('mem', {
+bg = beautiful.fg_urgent,
+fg_off = beautiful.bg_focus,
+fg = 'red',
+reverse = false,
+min_value = 0,
+max_value = 100
 })
 
 --}}}
@@ -212,12 +234,12 @@ botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "18", f
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
 --     skbwidget,
+     cpu0graphwidget,tb_space,
+     cpu1graphwidget,tb_space,
+     memwidget,tb_space,
      battarywidget,
      tempwidget,tb_spacer,
      cfreqwidget,tb_spacer,
-     cpu0graphwidget,tb_spacer,
-     cpu1graphwidget,tb_spacer,
-     memwidget,tb_spacer,
 --     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
      datew,mysystray
         }
@@ -302,7 +324,7 @@ function get_mem()
   io.close(fh)
 
   mem_percent = 100 * (mem_total - mem_free - mem_b - mem_c ) / mem_total;
- memwidget:plot_data_add("mem",mem_percent)
+ memwidget:bar_data_add("mem",mem_percent)
 end
 --}}}
 --{{{ cfreq hook
@@ -472,6 +494,9 @@ awful.hooks.timer.register(5, fivesec)
             text = os.date("%a, %d %B %Y") .. "\n" .. cal,
             timeout = 0, hover_timeout = 0.5,
             width = 160,
+            position  = "bottom_right",
+            fg ="black", bg = "gray70",
+
         })
     end
 
@@ -488,5 +513,45 @@ awful.hooks.timer.register(5, fivesec)
             add_calendar(1)
         end),
     })
+--}}}
+-- {{{ Volume tnx Frank Blendinger 
+ function get_volume()
+       local fh = io.popen('sleep 0.1 ; amixer sget PCM | grep "Front Left:" | sed -e \'s/^.*\\[\\([0-9]\\+%\\)\\].*$/\\1/\'')
+       output = fh:read("*a")
+       fh:close()
+       return output
+   end
+
+   vol_notify = nil
+   function change_volume(value, up)
+       local sign, notify_text
+       if up then
+           sign = "+"
+           notify_text = "up"
+       else
+           sign = "-"
+           notify_text = "down"
+       end
+       -- get the volume
+       awful.util.spawn("amixer -q set PCM '"..value.."%"..sign.."'")
+       -- delete old notification
+       if vol_notify then
+           awful.hooks.timer.unregister(vol_notify.die)
+           naughty.destroy(vol_notify)
+       end
+       -- display new notification
+       output = get_volume()
+       vol_notify = naughty.notify({ font="Terminus bold 14",width=130,margin=20,padding=10,height=20 ,title = "Volume "..notify_text, text = output, timeout = 5 })
+       -- update the volume widget
+       volumewidget_reg.update()
+   end
+
+--   keybinding({ modkey            }, "F9",     function () change_volume(8, false) end):add()
+--   keybinding({ modkey, "Control" }, "F9",     function () change_volume(2, false) end):add()
+--   keybinding({ modkey            }, "F10",    function () change_volume(8, true) end):add()
+--   keybinding({ modkey, "Control" }, "F10",    function () change_volume(2, true) end):add()
+table.insert(globalkeys, key({none}, "XF86AudioRaiseVolume", function () change_volume(2, true) end))
+table.insert(globalkeys, key({none}, "XF86AudioLowerVolume", function () change_volume(2, false) end))
+root.keys(globalkeys)
 --}}}
 -- vim: set filetype=lua fdm=marker tabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent nu:
