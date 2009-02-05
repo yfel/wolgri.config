@@ -14,14 +14,14 @@ row = 53
 use_rgba =
 
 # Transparent Window. Only enabled when the window manager were composited.
-transparent_window = 1
+transparent_window = 0
 
 # The opacity of transparent Window.
 window_opacity = 0,000
 
 # Use Transparent Background.
 # It will use true transparent if the window manager were composited.
-transparent_background = 1
+transparent_background = 0
 
 # The saturation of transparent background.
 background_saturation = 0,000
@@ -38,7 +38,7 @@ fixed_page_width = 1
 
 # The position of tab bar.
 # 0: Top, 1: bottom.
-tabbar_position = 0
+tabbar_position = 1
 
 # The label of tabs will fill the tab bar.
 fill_tab_bar = 0
@@ -76,19 +76,19 @@ page_cmdline_color = gray60
 
 # The color used for showing current directory on page name.
 # You may use black or #000000 here.
-page_dir_color = gray10
+page_dir_color = blue
 
 # The color used for showing custom name on page name.
 # You may use black or #000000 here.
-page_custom_color = gray10
+page_custom_color = black
 
 # The color used for showing normal name on page name.
 # You may use black or #000000 here.
-page_normal_color = gray10
+page_normal_color = black
 
 # The color used for showing root privileges cmdline on page name.
 # You may use black or #000000 here.
-page_root_color = black
+page_root_color = red
 
 # Shows [Change the foreground color]
 # and [Change the background color] on right click menu.
@@ -118,7 +118,7 @@ show_resize_menu = 1
 
 # Using AntiAlias when showing fonts.
 # 0: default. 1: force enable. 2: force disable.
-font_anti_alias = 0
+font_anti_alias = 1
 
 # The ratio when resizing font via function key <Ctrl><+> and <Ctrl><->.
 # 0: the font size is +/- 1 when resizing.
@@ -145,7 +145,7 @@ show_input_method_menu = 0
 show_get_function_key_menu = 1
 
 # Shows change page name menu on right click menu.
-show_change_page_name_menu = 0
+show_change_page_name_menu = 1
 
 # Enable hyperlink in vte terminal.
 enable_hyperlink = 1
@@ -264,25 +264,25 @@ reset_font_size = Ctrl Return
 #    Use it if you not sure.
 
 # The web browser using for http(s)://
-web_browser = firefox
+web_browser = swiftfox
 web_method = 1
 web_VTE_CJK_WIDTH = 0
 web_environ = 
 
 # The ftp client using for ftp(s)://
-ftp_client = firefox
+ftp_client = swiftfox
 ftp_method = 1
 ftp_VTE_CJK_WIDTH = 0
 ftp_environ = 
 
 # The file manager using for file://
-file_manager = firefox
+file_manager = pcmanfm
 file_method = 1
 file_VTE_CJK_WIDTH = 0
 file_environ = 
 
 # The email client using for user@host
-email_client = thunderbird
+email_client = 
 email_method = 1
 email_VTE_CJK_WIDTH = 0
 email_environ = 

@@ -342,6 +342,9 @@ awful.hooks.manage.register(function (c, startup)
         -- Add a titlebar
         awful.titlebar.add(c, { modkey = modkey })
     end
+    if c.type == "dialog" then
+       awful.titlebar.add(c, { modkey = modkey })
+   end
     -- Add mouse bindings
     c:buttons({
         button({ }, 1, function (c) client.focus = c; c:raise() end),

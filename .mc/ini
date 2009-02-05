@@ -89,8 +89,8 @@ permission_mode=1
 filetype_mode=1
 
 [Dirs]
-other_dir=/home/wolgri/Desktop
-current_is_left=1
+other_dir=/media/usbdisk/sis/putty
+current_is_left=0
 
 [New Left Panel]
 display=listing

@@ -1,4 +1,5 @@
 #!/bin/sh
+sleep 4 
 # XKB
 #setxkbmap -option grp:switch,grp:caps_toggle,grp_led:scroll 'us,ua,ru'
 #Synaptic
@@ -8,11 +9,10 @@ synclient VertTwoFingerScroll=0
 synclient HorizEdgeScroll=0
 synclient VertEdgeScroll=0
 synclient CircularScrolling=0
-sleep 4 
 ivman &
-lilyterm -t 2 &
+lilyterm -t 2 -e screen -ddR grw & 
 unclutter -root -idle 5 &
-nitrogen --restore
+#nitrogen --restore
 #x11vnc -usepw -shared -forever > /dev/null &
 wicd-client&
 #fuse.sh restart

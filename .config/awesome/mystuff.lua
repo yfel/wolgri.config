@@ -1,22 +1,3 @@
---{{{ Naugty
-naughty.config.timeout          = 5
-naughty.config.screen           = 1
-naughty.config.position         = "bottom_right"
-naughty.config.margin           = 4
-naughty.config.height           = 16
-naughty.config.width            = 300
-naughty.config.gap              = 1
-naughty.config.ontop            = true
-naughty.config.font             = beautiful.font or "Verdana 8"
-naughty.config.icon             = nil
-naughty.config.icon_size        = 16
-naughty.config.fg               = beautiful.fg_focus or '#ffffff'
-naughty.config.bg               = beautiful.bg_focus or '#535d6c'
-naughty.config.border_color     = beautiful.border_focus or '#535d6c'
-naughty.config.border_width     = 1
-naughty.config.hover_timeout    = nil
-
---}}}
 --{{{ Base keybindings 
 --keybinding({ modkey }, "F2", revelation.revelation):add()
 table.insert(globalkeys, key({ modkey }, "F5", function () client.focus.fullscreen = not client.focus.fullscreen end))
@@ -128,7 +109,7 @@ battarywidget:bar_properties_set('bat', {
 
 bg = beautiful.fg_urgent,
 fg = "cadet blue",
-fg_off = 'red',
+fg_off = "red",
 reverse = false,
 min_value = 0,
 max_value = 100
@@ -141,8 +122,8 @@ skbwidget = widget({ type = 'textbox', name = 'skbwidget' , align = 'left' })
 --{{{ temp
 tempwidget = widget({ type = 'textbox', name = 'cfreqwidget' , align = 'right' })
 --}}}
---{{{ Mhz
-cfreqwidget = widget({ type = 'textbox', name = 'cfreqwidget' , align = 'right' })
+--{{{ CPU FQ
+cfreqwidget = widget({ type = 'textbox', name = 'cfreqwidget' , align = 'left'})
 --}}}
 --{{{ Cpu
 
@@ -154,8 +135,8 @@ cpu0graphwidget.border_color = beautiful.fg_urgent
 cpu0graphwidget.grow = 'left'
 
 cpu0graphwidget:plot_properties_set('cpu', { 
-fg = beautiful.border_marked,
 style ='line',
+fg = beautiful.border_marked,
 fg_center = 'green', 
 fg_end = 'cyan', 
 vertical_gradient = true 
@@ -167,11 +148,11 @@ cpu1graphwidget.bg = beautiful.bg_focus
 cpu1graphwidget.border_color = beautiful.fg_urgent
 cpu1graphwidget.grow = 'left'
 
-cpu0graphwidget:plot_properties_set('cpu', { 
+cpu1graphwidget:plot_properties_set('cpu', { 
+style ="line",
 fg = beautiful.border_marked,
-style ='line',
-fg_center = 'green', 
-fg_end = 'cyan', 
+fg_center = "green", 
+fg_end = "cyan", 
 vertical_gradient = true 
 })
 --}}}
@@ -179,7 +160,7 @@ vertical_gradient = true
 memwidget = widget({ type = 'progressbar', name = 'memwidget', align = 'left' })
 
 memwidget.width = 40
-memwidget.height = 0.6
+memwidget.height = 0.8
 memwidget.gap = 1
 memwidget.border_padding = 0
 memwidget.border_width = 1
@@ -190,7 +171,7 @@ memwidget.grow = "left"
 memwidget:bar_properties_set('mem', {
 bg = beautiful.fg_urgent,
 fg_off = beautiful.bg_focus,
-fg = 'red',
+fg = 'green',
 reverse = false,
 min_value = 0,
 max_value = 100
@@ -235,12 +216,12 @@ botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "14", f
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
 --     skbwidget,
+     cfreqwidget,tb_space,
      cpu0graphwidget,tb_space,
      cpu1graphwidget,tb_space,
      memwidget,tb_space,
      battarywidget,
      tempwidget,tb_spacer,
-     cfreqwidget,tb_spacer,
 --     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
      datew,mysystray
         }
@@ -336,7 +317,7 @@ function get_cfreq()
       end    
 
     m:close()
-cfreqwidget.text =""..cfreq..""
+cfreqwidget.text ="<span font_desc='sans bold 8'>"..cfreq.."</span>"
 end 
 --}}} 
 --{{{ temp hook
@@ -415,8 +396,20 @@ local function get_bat()
        end 
     b:close()
 batt=math.floor(now*100/full)
-battarywidget:bar_data_add("bat",batt )
 
+            if tonumber(batt) <= 10 
+            then
+                naughty.notify({ title      = "Battery Warning"
+                               , text       = "Battery low! "..batt.."% left!"
+                               , timeout    = 30
+                               , position   = "top_right"
+                               , fg         = beautiful.fg_focus
+                               , bg         = beautiful.bg_focus
+                               })
+            end
+            batt = batt
+
+battarywidget:bar_data_add("bat",batt )
 end
 
 --}}}
@@ -450,6 +443,50 @@ function splitbywhitespace(str)
      return values
 end
 --}}}
+-- {{{ Battery (BAT0)
+function batteryInfo(adapter)
+    local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")    
+    local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
+    local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
+    local cur = fcur:read()
+    fcur:close()
+    local cap = fcap:read()
+    fcap:close()
+    local sta = fsta:read()
+    fsta:close()
+    
+    local battery = math.floor(cur * 100 / cap)
+    
+    if sta:match("Charging") then
+        dir = "^"
+        battery = "A/C ("..battery..")"
+    elseif sta:match("Discharging") then
+        dir = "v"
+        if tonumber(battery) >= 25 and tonumber(battery) <= 50 then
+            battery = setFg("#e6d51d", battery)
+        elseif tonumber(battery) < 25 then
+            if tonumber(battery) <= 10 then
+                naughty.notify({ title      = "Battery Warning"
+                               , text       = "Battery low! "..battery.."% left!"
+                               , timeout    = 30
+                               , position   = "top_right"
+                               , fg         = beautiful.fg_focus
+                               , bg         = beautiful.bg_focus
+                               })
+            end
+            battery = setFg("#ff6565", battery)
+        else
+            battery = battery
+        end
+    else
+        dir = "="
+        battery = "A/C"
+    end
+    
+    batterywidget.text = setFg(beautiful.fg_focus, "Battery: ")..dir..battery.."% "
+end
+-- }}}
+
 --{ {{ Set My some hooks
 
 function onesec()
@@ -517,7 +554,7 @@ awful.hooks.timer.register(5, fivesec)
 --}}}
 -- {{{ Volume tnx Frank Blendinger 
  function get_volume()
-       local fh = io.popen('sleep 0.1 ; amixer sget PCM | grep "Front Left:" | sed -e \'s/^.*\\[\\([0-9]\\+%\\)\\].*$/\\1/\'')
+       local fh = io.popen('sleep 0.1 ; amixer sget Master | grep "Mono:" | sed -e \'s/^.*\\[\\([0-9]\\+%\\)\\].*$/\\1/\'')
        output = fh:read("*a")
        fh:close()
        return output
@@ -528,13 +565,13 @@ awful.hooks.timer.register(5, fivesec)
        local sign, notify_text
        if up then
            sign = "+"
-           notify_text = "up"
+           notify_text = "+"
        else
            sign = "-"
-           notify_text = "down"
+           notify_text = "-"
        end
        -- get the volume
-       awful.util.spawn("amixer -q set PCM '"..value.."%"..sign.."'")
+       awful.util.spawn("amixer -q set Master '"..value.."%"..sign.."'")
        -- delete old notification
        if vol_notify then
            awful.hooks.timer.unregister(vol_notify.die)
@@ -542,9 +579,17 @@ awful.hooks.timer.register(5, fivesec)
        end
        -- display new notification
        output = get_volume()
-       vol_notify = naughty.notify({ font="Terminus bold 14",width=130,margin=20,padding=10,height=20 ,title = "Volume "..notify_text, text = output, timeout = 5 })
+       vol_notify = naughty.notify({ font="DejaVu Sans Mono bold 10",
+       width=70,
+       margin=0,
+       padding=0,
+       height=18,
+       position  = "bottom_left",
+       fg ="red", bg = "gray70",
+
+       title = "Volume", text ="   "..output, timeout = 5 })
        -- update the volume widget
-       volumewidget_reg.update()
+--       volumewidget_reg.update()
    end
 
 --   keybinding({ modkey            }, "F9",     function () change_volume(8, false) end):add()
