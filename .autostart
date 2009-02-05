@@ -1,5 +1,6 @@
 #!/bin/sh
 sleep 4 
+autocutsel -s PRIMARY -buttonup -fork
 # XKB
 #setxkbmap -option grp:switch,grp:caps_toggle,grp_led:scroll 'us,ua,ru'
 #Synaptic

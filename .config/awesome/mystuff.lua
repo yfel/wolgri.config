@@ -25,7 +25,7 @@ table.insert(globalkeys, key({ modkey, "Shift" }, "Right", function () awful.cli
 
 table.insert(globalkeys, key({ modkey }, "F3", function () awful.util.spawn("mocp -G") end))
 
-
+table.insert(clientkeys, key({ modkey, "Shift"   }, "t", function (c) if c.titlebar then awful.titlebar.remove(c) else awful.titlebar.add(c, { modkey = "Mod1" }) end end))
 
 --}}}
 --{{{ Move resize 

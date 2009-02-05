@@ -6,18 +6,18 @@
 # BASICS
 font          = sans bold 8
 
-bg_focus      = gray45
-bg_normal     = gray30
-bg_urgent     = gray45
+bg_focus      = #737373
+bg_normal     = #4D4D4D
+bg_urgent     = #737373
 
-fg_normal     = gray80
-fg_focus      = gray90
+fg_normal     = #CCCCCC
+fg_focus      = #E5E5E5
 fg_urgent     = 
 
 border_width  = 2
-border_normal = grey70
-border_focus  = gray30
-border_marked = orange
+border_normal = #B3B3B3
+border_focus  = #4D4D4D
+border_marked = #FFA500
 
 # IMAGES
 layout_fairh = /home/wolgri/.config/awesome/themes/wolgri/layouts/fairh.png
@@ -34,6 +34,11 @@ layout_vilebottom = /home/wolgri/.config/awesome/themes/wolgri/layouts/vilebotto
 layout_vileleft = /home/wolgri/.config/awesome/themes/wolgri/layouts/vileleft.png
 layout_vile = /home/wolgri/.config/awesome/themes/wolgri/layouts/vile.png
 layout_viletop = /home/wolgri/.config/awesome/themes/wolgri/layouts/viletop.png
+
+# Define the image to load
+titlebar_close_button_normal = /home/wolgri/.config/awesome/themes/wolgri/titlebar/close.png
+titlebar_close_button_focus = /home/wolgri/.config/awesome/themes/wolgri/titlebar/closer.png
+
 
 awesome_icon = /home/wolgri/.config/awesome/themes/wolgri/awesome-icon.png
 tasklist_floating_icon = /home/wolgri/.config/awesome/themes/wolgri/layouts/floating.png

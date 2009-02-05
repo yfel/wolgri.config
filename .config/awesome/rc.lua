@@ -10,7 +10,7 @@ require("debian.menu")
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 -- The default is a dark theme
-theme_path = "/usr/share/awesome/themes/default/theme"
+--theme_path = "/usr/share/awesome/themes/default/theme"
 theme_path = "/home/wolgri/.config/awesome/themes/wolgri/theme"
 -- Uncommment this for a lighter theme
 -- theme_path = "/usr/share/awesome/themes/sky/theme"
@@ -19,8 +19,8 @@ theme_path = "/home/wolgri/.config/awesome/themes/wolgri/theme"
 beautiful.init(theme_path)
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
+terminal = "urxvt"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -342,7 +342,7 @@ awful.hooks.manage.register(function (c, startup)
         -- Add a titlebar
         awful.titlebar.add(c, { modkey = modkey })
     end
-    if c.type == "dialog" then
+    if c.type == "floating" then
        awful.titlebar.add(c, { modkey = modkey })
    end
     -- Add mouse bindings
