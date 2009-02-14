@@ -74,11 +74,7 @@ git_status() {
   echo $output
 }
 #}}}
-#{{{ viewing man pages
-function man 
-{
-  /usr/bin/man $* | col -bp | iconv -c | view -c 'set ft=man nomod nolist' -
-}
+#{{{ rol 
 roll () {
     FILE=$1
     case $FILE in
@@ -308,7 +304,7 @@ setprompt () {
     colors
     setopt prompt_subst
 
-PROMPT='%{$fg_bold[grey]%}[%{$fg_bold[white]%}%~%{$reset_color%}%{$fg_bold[grey]%}]%{$reset_color%}-%{$fg_bold[yellow]%}»%{$reset_color%}' 
+PROMPT='%{$fg_bold[green]%}[%{$fg_bold[white]%}%~%{$reset_color%}%{$fg_bold[green]%}]%{$reset_color%}-%{$fg_bold[yellow]%}»%{$reset_color%}' 
 RPROMPT='%{$fg[white]%}%D{%H:%M}%{$reset_color%}'
 RPS1='%{$fg[yellow]%}$(git_prompt_info) %{$reset_color%}%*'
 }
