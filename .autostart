@@ -17,6 +17,6 @@ unclutter -root -idle 5 &
 #x11vnc -usepw -shared -forever > /dev/null &
 wicd-client&
 #fuse.sh restart
-www&
+wwwfox&
 wmname LG3D
 /usr/bin/gnome-screensaver  --no-daemon
