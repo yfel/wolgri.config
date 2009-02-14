@@ -40,9 +40,9 @@ table.insert(clientkeys, key({ modkey, "Shift"   }, "t", function (c) if c.title
 --table.insert(globalkeys, key({ modkey, "Mod1" }, "Left", function () awful.client.moveresize(-10, 0, 0, 0) end))
 --}}}
 --{{{ Fn keys  
-table.insert(globalkeys, key({none}, "XF86AudioMute", function () awful.util.spawn("amixer -c 0 set Master toggle") end))
---table.insert(globalkeys, key({none}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixset +") end))
---table.insert(globalkeys, key({none}, "XF86AudioLowerVolume", function () awful.util.spawn("amixset -") end))
+table.insert(globalkeys, key({ }, "XF86AudioRaiseVolume", function () volume("up", pb_volume) end))
+table.insert(globalkeys, key({ }, "XF86AudioLowerVolume", function () volume("down", pb_volume) end))
+table.insert(globalkeys, key({ }, "XF86AudioMute", function () volume("mute", pb_volume) end))
 table.insert(globalkeys, key({none}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end))
 table.insert(globalkeys, key({none}, "XF86AudioNext", function () awful.util.spawn("mpc next") end))
 table.insert(globalkeys, key({none}, "XF86AudioStop", function () awful.util.spawn("mpc stop ") end))
@@ -83,12 +83,12 @@ table.insert(globalkeys, key({ modkey, "Shift" }, "Tab", function ()
   end))
 --}}}
 root.keys(globalkeys)
---{{{ My widgets
+--{{{Widgets
 --{{{ Spacer
 local bg_color = beautiful.bg_normal
 tb_space= widget({ type = 'textbox', name = 'tb_space'})
 tb_space.width = "4"
-tb_space.text = " "
+tb_space.text = ""
 
 tb_spacer= widget({ type = 'textbox', name = 'tb_spacer',align = 'right' })
 tb_spacer.width = "6"
@@ -208,8 +208,30 @@ ratewidget = widget({ type = 'textbox', name = 'ratewidget',align = 'right' })
 --{{{Date
   datew = widget({type = 'textbox',name = 'datew',align = "right"  })
 --}}}
+--{{{ Volume
+ pb_volume =  widget({ type = "progressbar", name = "pb_volume", align = "right" })
+ pb_volume.width = 40
+ pb_volume.height = 0.80
+ pb_volume.border_padding = 1
+ pb_volume.ticks_count = 10
+ pb_volume.vertical = false
+ 
+ pb_volume:bar_properties_set("vol", 
+ { 
+   ["bg"] = "#000000",
+   ["fg"] = "#6666cc",
+   ["fg_off"] = "#000000",
+   ["border_color"] = "#999933"
+ })
+pb_volume:buttons({
+     button({ }, 4, function () volume("up", pb_volume) end),
+     button({ }, 5, function () volume("down", pb_volume) end),
+     button({ }, 1, function () volume("mute", pb_volume) end)
+ })
+
 --}}}
--- {{{ Bottom panel
+--}}}
+-- {{{Bottom panel
 -- Create a botbox for each screen and add it
 botbox = {}
 botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "14", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
@@ -222,14 +244,15 @@ botbox[1].widgets = {
      memwidget,tb_space,
      battarywidget,
      tempwidget,tb_spacer,
+        pb_volume,
 --     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
      datew,mysystray
         }
 botbox[1].screen = 1
 
 --}}}
---  {{{ My hooks
---{{{ cpu
+--{{{Hooks
+--{{{cpu
 cpu0_total = 0
 cpu0_active = 0
 cpu1_total = 0
@@ -419,7 +442,7 @@ function hook_timer ()
     datew.text ="<span font_desc=\"sans bold 8\" color=\"white\">"..os.date('%a %d %b  %H:%M').."</span>"
 end
 -- }}}
--- {{{ splitbywhitespace stolen from wicked.lua
+--{{{splitbywhitespace stolen from wicked.lua
 function splitbywhitespace(str) 
      values = {}
      start = 1
@@ -443,7 +466,7 @@ function splitbywhitespace(str)
      return values
 end
 --}}}
--- {{{ Battery (BAT0)
+--{{{Battery (BAT0)
 function batteryInfo(adapter)
     local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")    
     local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
@@ -486,28 +509,7 @@ function batteryInfo(adapter)
     batterywidget.text = setFg(beautiful.fg_focus, "Battery: ")..dir..battery.."% "
 end
 -- }}}
-
---{ {{ Set My some hooks
-
-function onesec()
-    hook_timer()
-    get_mem()
-    get_cpu()
-    get_cfreq()
---    get_skb()
-end
-
-function fivesec()
---    update_iwinfo()
-    get_bat()
-    get_temp()
-
-end
-
-awful.hooks.timer.register(1, onesec)
-awful.hooks.timer.register(5, fivesec)
---}}}
---{{{ Naughty Callendar 
+--{{{Naughty Callendar
  local calendar = nil
     local offset = 0
 
@@ -552,52 +554,46 @@ awful.hooks.timer.register(5, fivesec)
         end),
     })
 --}}}
--- {{{ Volume tnx Frank Blendinger 
- function get_volume()
-       local fh = io.popen('sleep 0.1 ; amixer sget Master | grep "Mono:" | sed -e \'s/^.*\\[\\([0-9]\\+%\\)\\].*$/\\1/\'')
-       output = fh:read("*a")
-       fh:close()
-       return output
-   end
+--{{{ Volume 
+cardid  = 0
+channel = "Master"
 
-   vol_notify = nil
-   function change_volume(value, up)
-       local sign, notify_text
-       if up then
-           sign = "+"
-           notify_text = "+"
-       else
-           sign = "-"
-           notify_text = "-"
-       end
-       -- get the volume
-       awful.util.spawn("amixer -q set Master '"..value.."%"..sign.."'")
-       -- delete old notification
-       if vol_notify then
-           awful.hooks.timer.unregister(vol_notify.die)
-           naughty.destroy(vol_notify)
-       end
-       -- display new notification
-       output = get_volume()
-       vol_notify = naughty.notify({ font="DejaVu Sans Mono bold 10",
-       width=70,
-       margin=0,
-       padding=0,
-       height=18,
-       position  = "bottom_left",
-       fg ="red", bg = "gray70",
+ function volume (mode, widget)
+    if mode == "update" then
+        local status = io.popen("amixer -c " .. cardid .. " -- sget " .. channel):read("*all")
+        
+        local volume = string.match(status, "(%d?%d?%d)%%")
+ 
+        status = string.match(status, "%[(o[^%]]*)%]")
+ 
+        if string.find(status, "on", 1, true) then
+            widget:bar_properties_set("vol", {["bg"] = "#000000"})
+        else
+            widget:bar_properties_set("vol", {["bg"] = "#cc3333"})
+        end
+        widget:bar_data_add("vol", volume)
+    elseif mode == "up" then
+        awful.util.spawn("amixer -q -c " .. cardid .. " sset " .. channel .. " 5%+")
+        volume("update", widget)
+    elseif mode == "down" then
+        awful.util.spawn("amixer -q -c " .. cardid .. " sset " .. channel .. " 5%-")
+        volume("update", widget)
+    else
+        awful.util.spawn("amixer -c " .. cardid .. " sset " .. channel .. " toggle")
+        volume("update", widget)
+    end
+ end
+volume("update", pb_volume);
 
-       title = "Volume", text ="   "..output, timeout = 5 })
-       -- update the volume widget
---       volumewidget_reg.update()
-   end
-
---   keybinding({ modkey            }, "F9",     function () change_volume(8, false) end):add()
---   keybinding({ modkey, "Control" }, "F9",     function () change_volume(2, false) end):add()
---   keybinding({ modkey            }, "F10",    function () change_volume(8, true) end):add()
---   keybinding({ modkey, "Control" }, "F10",    function () change_volume(2, true) end):add()
-table.insert(globalkeys, key({none}, "XF86AudioRaiseVolume", function () change_volume(2, true) end))
-table.insert(globalkeys, key({none}, "XF86AudioLowerVolume", function () change_volume(2, false) end))
-root.keys(globalkeys)
+--}}}
+--{{{Timers
+awful.hooks.timer.register(1, hook_timer())
+awful.hooks.timer.register(1, get_mem())
+awful.hooks.timer.register(1, get_cpu())
+awful.hooks.timer.register(1, get_cfreq())
+--awful.hooks.timer.register(1, get_skb())
+--awful.hooks.timer.register(1, update_iwinfo())
+awful.hooks.timer.register(1, get_bat())
+awful.hooks.timer.register(1, get_temp())
 --}}}
 -- vim: set filetype=lua fdm=marker tabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent nu:
