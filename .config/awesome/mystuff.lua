@@ -587,13 +587,13 @@ volume("update", pb_volume);
 
 --}}}
 --{{{Timers
-awful.hooks.timer.register(1, hook_timer())
-awful.hooks.timer.register(1, get_mem())
-awful.hooks.timer.register(1, get_cpu())
-awful.hooks.timer.register(1, get_cfreq())
---awful.hooks.timer.register(1, get_skb())
---awful.hooks.timer.register(1, update_iwinfo())
-awful.hooks.timer.register(1, get_bat())
-awful.hooks.timer.register(1, get_temp())
+awful.hooks.timer.register(1, hook_timer)
+awful.hooks.timer.register(1, get_mem)
+awful.hooks.timer.register(1, get_cpu)
+awful.hooks.timer.register(1, get_cfreq)
+--awful.hooks.timer.register(1, get_skb)
+--awful.hooks.timer.register(1, update_iwinfo)
+awful.hooks.timer.register(3, get_bat)
+awful.hooks.timer.register(3, get_temp)
 --}}}
 -- vim: set filetype=lua fdm=marker tabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent nu:
