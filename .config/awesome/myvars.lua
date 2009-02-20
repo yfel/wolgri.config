@@ -5,7 +5,7 @@ floatapps =
     -- by class
     ["MPlayer"] = true,
     ["pinentry"] = true,
-    ["gimp"] = true,
+--    ["gimp"] = true,
     ["wicd-client.py"] = true,
 
     -- by instance

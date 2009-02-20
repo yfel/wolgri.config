@@ -96,28 +96,25 @@ tb_spacer.text = tb_space.text
 
 --}}}
 --{{{ Batt
-battarywidget = widget({ type = 'progressbar', name = 'battarywidget' })
-battarywidget.width = 60
-battarywidget.height = 0.6
-battarywidget.gap = 1
-battarywidget.border_padding = 0
-battarywidget.border_width = 1
-battarywidget.ticks_count = 10
-battarywidget.ticks_gap = 1
-battarywidget.vertical = false
-battarywidget:bar_properties_set('bat', {
+pb_bat = widget({ type = 'progressbar', name = 'pb_bat' })
+pb_bat.width = 60
+pb_bat.height = 0.6
+pb_bat.gap = 1
+pb_bat.border_padding = 0
+pb_bat.border_width = 1
+pb_bat.ticks_count = 10
+pb_bat.ticks_gap = 1
+pb_bat.vertical = false
+pb_bat:bar_properties_set('bat', {
 
 bg = beautiful.fg_urgent,
-fg = "cadet blue",
-fg_off = "red",
+fg = beautiful.bat_fg,
+fg_off = beautiful.color_red,
 reverse = false,
 min_value = 0,
 max_value = 100
 })
 
---}}}
---{{{ skb
-skbwidget = widget({ type = 'textbox', name = 'skbwidget' , align = 'left' })
 --}}}
 --{{{ temp
 tempwidget = widget({ type = 'textbox', name = 'cfreqwidget' , align = 'right' })
@@ -137,8 +134,8 @@ cpu0graphwidget.grow = 'left'
 cpu0graphwidget:plot_properties_set('cpu', { 
 style ='line',
 fg = beautiful.border_marked,
-fg_center = 'green', 
-fg_end = 'cyan', 
+fg_center = beautiful.color_green, 
+fg_end = beautiful.color_cyan, 
 vertical_gradient = true 
 })
 cpu1graphwidget = widget({ type = 'graph', name = 'cpu1graphwidget', align = 'left' }) 
@@ -151,58 +148,32 @@ cpu1graphwidget.grow = 'left'
 cpu1graphwidget:plot_properties_set('cpu', { 
 style ="line",
 fg = beautiful.border_marked,
-fg_center = "green", 
-fg_end = "cyan", 
+fg_center = beautiful.color_green, 
+fg_end = beautiful.color_cyan, 
 vertical_gradient = true 
 })
 --}}}
 --{{{MeM 
-memwidget = widget({ type = 'progressbar', name = 'memwidget', align = 'left' })
+pb_mem = widget({ type = 'progressbar', name = 'pb_mem', align = 'left' })
 
-memwidget.width = 40
-memwidget.height = 0.8
-memwidget.gap = 1
-memwidget.border_padding = 0
-memwidget.border_width = 1
-memwidget.ticks_count = 10
-memwidget.ticks_gap = 1
-memwidget.vertical = false
-memwidget.grow = "left"
-memwidget:bar_properties_set('mem', {
-bg = beautiful.fg_urgent,
-fg_off = beautiful.bg_focus,
-fg = 'green',
-reverse = false,
-min_value = 0,
-max_value = 100
+pb_mem.width = 40
+pb_mem.height = 0.8
+pb_mem.gap = 1
+pb_mem.border_padding = 0
+pb_mem.border_width = 1
+pb_mem.ticks_count = 10
+pb_mem.ticks_gap = 1
+pb_mem.vertical = false
+pb_mem.grow = "left"
+pb_mem:bar_properties_set('mem',
+{
+    ["bg"] = beautiful.fg_urgent ,
+    ["fg_off"] = beautiful.bg_focus ,
+    ["fg"] = beautiful.color_green ,
+    ["reverse"] = false,
+    ["min_value"] = 0,
+    ["max_value"] = 100
 })
-
---}}}
---{{{ Wifi
-essidwidget = widget({ type = 'textbox', name = 'essidwidget',align = 'right' })
-
-lqbarwidget = widget({ type = 'progressbar', name = 'lqbarwidget', align = 'right' })
-
-lqbarwidget.width = 70
-lqbarwidget.height = 1
-lqbarwidget.gap = 0
-lqbarwidget.border_padding = 1
-lqbarwidget.border_width = 1
-lqbarwidget.ticks_count = 10
-lqbarwidget.ticks_gap = 1
-lqbarwidget.vertical = false
-
-lqbarwidget:bar_properties_set('lq', {
-bg = 'gray20',
-fg = 'green',
-fg_off = 'gray20',
-reverse = false,
-min_value = 0,
-max_value = 100
-})
-ratewidget = widget({ type = 'textbox', name = 'ratewidget',align = 'right' })
-
-
 
 --}}}
 --{{{Date
@@ -241,8 +212,8 @@ botbox[1].widgets = {
      cfreqwidget,tb_space,
      cpu0graphwidget,tb_space,
      cpu1graphwidget,tb_space,
-     memwidget,tb_space,
-     battarywidget,
+     pb_mem,tb_space,
+     pb_bat,
      tempwidget,tb_spacer,
         pb_volume,
 --     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
@@ -329,7 +300,7 @@ function get_mem()
   io.close(fh)
 
   mem_percent = 100 * (mem_total - mem_free - mem_b - mem_c ) / mem_total;
- memwidget:bar_data_add("mem",mem_percent)
+ pb_mem:bar_data_add("mem",mem_percent)
 end
 --}}}
 --{{{ cfreq hook
@@ -354,58 +325,6 @@ function get_temp()
 tempwidget.text =""..temp.."°"
 end 
 --}}} 
---{{{ skb hook
-function get_skb()
-    local m = io.popen("skb -1")
-      for line in m:lines() do
-            skb = line
-      end    
-
-    m:close()
-skbwidget.text ="<bg color=\"blue\"/><span font_desc=\"sans bold 9\" color=\"white\"> " ..skb.. " </span>"
-end 
---}}} 
---{{{ wifi hook
-
-local function get_iwinfo_iwcfg()
-    local wlann="ath0"
-	local f1 = io.popen("/sbin/iwconfig " .. wlann)
-	if not f1 then
-		return
-	else
-		local iwOut = f1:read('*a')
-		f1:close()
-		st,en,proto = string.find(iwOut, '(802.11[%-]*%a*)')
-		st,en,ssid = string.find(iwOut, 'ESSID[=:]"([%w+%s*]*)"', en)
-		st,en,bitrate = string.find(iwOut, 'Bit Rate[=:]([%s%w%.]*%/%a+)', en)
-		bitrate = string.gsub(bitrate, "%s", "")
-		st,en,linkq1,linkq2 = string.find(iwOut, 'Link Quality[=:](%d+)/(%d+)', en)
-		st,en,signal = string.find(iwOut, 'Signal level[=:](%-%d+)', en)
-		st,en,noise = string.find(iwOut, 'Noise level[=:](%-%d+)', en)
-        linkq = math.floor(100*linkq1/linkq2)
-		return proto, ssid, bitrate, linkq, signal, noise
-	end
-end
-
-local function update_iwinfo()
-	local proto, ssid, bitrate, linkq, signal, noise = get_iwinfo_iwcfg()
-
--- In case get_iwinfo_iwcfg doesn't return any values we don't want stupid lua
--- errors about concatenating nil values.
-	ssid = ssid or "N/A"
-	bitrate = bitrate or "N/A"
-	linkq = linkq or "N/A"
-	signal = signal or "N/A"
-	noise = noise or "N/A"
-	proto = proto or "N/A"
-
-essidwidget.text ="<bg color=\"red\"/><span font_desc=\"sans bold 9\" color=\"white\"> "..ssid.." </span>"
-ratewidget.text = "<span color=\"green\">"..bitrate.."</span>"
-lqbarwidget:bar_data_add("lq",linkq )
-
-
-end
---}}}
 --{{{ batt hook
 local function get_bat()
    local a = io.open("/sys/class/power_supply/BAT1/charge_full")
@@ -432,14 +351,14 @@ batt=math.floor(now*100/full)
             end
             batt = batt
 
-battarywidget:bar_data_add("bat",batt )
+pb_bat:bar_data_add("bat",batt )
 end
 
 --}}}
 --{{{ date hook 
 function hook_timer ()
     os.setlocale(os.getenv("LC_ALL"))
-    datew.text ="<span font_desc=\"sans bold 8\" color=\"white\">"..os.date('%a %d %b  %H:%M').."</span>"
+    datew.text = os.date('%a %d %b  %H:%M')
 end
 -- }}}
 --{{{splitbywhitespace stolen from wicked.lua

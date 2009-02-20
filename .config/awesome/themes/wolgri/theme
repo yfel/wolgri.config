@@ -1,8 +1,6 @@
 -------------------------------
 --    "Wolgri" awesome theme    --
 -------------------------------
-# If you want SVGs and extras, get them from garoth.com/awesome/sky-theme
-
 # BASICS
 font          = sans bold 8
 
@@ -12,12 +10,18 @@ bg_urgent     = #737373
 
 fg_normal     = #CCCCCC
 fg_focus      = #E5E5E5
-fg_urgent     = 
+fg_urgent     = #E4DACB
+
 
 border_width  = 2
 border_normal = #B3B3B3
 border_focus  = #4D4D4D
 border_marked = #FFA500
+
+color_green = #00FF00
+color_red   = #FF0000
+color_cyan  = #00FFFF
+bat_fg      = #5F9EA0
 
 # IMAGES
 layout_fairh = /home/wolgri/.config/awesome/themes/wolgri/layouts/fairh.png
@@ -55,3 +59,4 @@ taglist_squares = true
 titlebar_close_button = true
 menu_height   = 15
 menu_width    = 100
+
