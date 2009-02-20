@@ -2,42 +2,34 @@
 --keybinding({ modkey }, "F2", revelation.revelation):add()
 table.insert(globalkeys, key({ modkey }, "F5", function () client.focus.fullscreen = not client.focus.fullscreen end))
 table.insert(clientkeys, key({ modkey }, "w", function (c) c:kill() end))
-
 table.insert(globalkeys, key({ modkey }, "Left", function () awful.client.focus.byidx(1); if client.focus then client.focus:raise() end end))
 table.insert(globalkeys, key({ modkey }, "Right", function () awful.client.focus.byidx(-1);  if client.focus then client.focus:raise() end end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Left", function () awful.client.swap.byidx(1) end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Right", function () awful.client.swap.byidx(-1) end))
 table.insert(globalkeys, key({ modkey, "Control" }, "Left", function () awful.screen.focus(1) end))
 table.insert(globalkeys, key({ modkey, "Control" }, "Right", function () awful.screen.focus(-1) end))
-
 table.insert(globalkeys, key({ modkey }, "Up", function () awful.tag.incmwfact(0.05) end))
 table.insert(globalkeys, key({ modkey }, "Down", function () awful.tag.incmwfact(-0.05) end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Down", function () awful.tag.incnmaster(1) end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Up", function () awful.tag.incnmaster(-1) end))
 table.insert(globalkeys, key({ modkey, "Control" }, "Down", function () awful.tag.incncol(1) end))
 table.insert(globalkeys, key({ modkey, "Control" }, "Up", function () awful.tag.incncol(-1) end))
-
-
 table.insert(globalkeys, key({"Control"}, "Escape", function () awful.util.spawn(xlock) end))
-
 table.insert(globalkeys, key({ modkey, "Shift" }, "Left", function () awful.client.focus.byidx(1); client.focus:lower() end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Right", function () awful.client.focus.byidx(1); client.focus:raise() end))
-
 table.insert(globalkeys, key({ modkey }, "F3", function () awful.util.spawn("mocp -G") end))
-
-table.insert(clientkeys, key({ modkey, "Shift"   }, "t", function (c) if c.titlebar then awful.titlebar.remove(c) else awful.titlebar.add(c, { modkey = "Mod1" }) end end))
-
+table.insert(clientkeys, key({ modkey, "Shift" }, "t", function (c) if c.titlebar then awful.titlebar.remove(c) else awful.titlebar.add(c, { modkey = "Mod1" }) end end))
 --}}}
 --{{{ Move resize 
---table.insert(globalkeys, key({ modkey, "Control" }, "Up", function () awful.client.moveresize(0, 0, 0, -10) end))
---table.insert(globalkeys, key({ modkey, "Control" }, "Right", function () awful.client.moveresize(0, 0, 10, 0) end))
---table.insert(globalkeys, key({ modkey, "Control" }, "Down", function () awful.client.moveresize(0, 0, 0, 10) end))
---table.insert(globalkeys, key({ modkey, "Control" }, "Left", function () awful.client.moveresize(0, 0, -10, 0) end))
+table.insert(globalkeys, key({ modkey, "Control" }, "Up", function () awful.client.moveresize(0, 0, 0, -10) end))
+table.insert(globalkeys, key({ modkey, "Control" }, "Right", function () awful.client.moveresize(0, 0, 10, 0) end))
+table.insert(globalkeys, key({ modkey, "Control" }, "Down", function () awful.client.moveresize(0, 0, 0, 10) end))
+table.insert(globalkeys, key({ modkey, "Control" }, "Left", function () awful.client.moveresize(0, 0, -10, 0) end))
 ----
---table.insert(globalkeys, key({ modkey, "Mod1" }, "Up", function () awful.client.moveresize(0, -10, 0, 0) end))
---table.insert(globalkeys, key({ modkey, "Mod1" }, "Right", function () awful.client.moveresize(10, 0, 0, 0) end))
---table.insert(globalkeys, key({ modkey, "Mod1" }, "Down", function () awful.client.moveresize(0, 10, 0, 0) end))
---table.insert(globalkeys, key({ modkey, "Mod1" }, "Left", function () awful.client.moveresize(-10, 0, 0, 0) end))
+table.insert(globalkeys, key({ modkey, "Mod1" }, "Up", function () awful.client.moveresize(0, -10, 0, 0) end))
+table.insert(globalkeys, key({ modkey, "Mod1" }, "Right", function () awful.client.moveresize(10, 0, 0, 0) end))
+table.insert(globalkeys, key({ modkey, "Mod1" }, "Down", function () awful.client.moveresize(0, 10, 0, 0) end))
+table.insert(globalkeys, key({ modkey, "Mod1" }, "Left", function () awful.client.moveresize(-10, 0, 0, 0) end))
 --}}}
 --{{{ Fn keys  
 table.insert(globalkeys, key({ }, "XF86AudioRaiseVolume", function () volume("up", pb_volume) end))
@@ -117,35 +109,35 @@ max_value = 100
 
 --}}}
 --{{{ temp
-tempwidget = widget({ type = 'textbox', name = 'cfreqwidget' , align = 'right' })
+tb_temp = widget({ type = 'textbox', name = 'tb_fq' , align = 'right' })
 --}}}
---{{{ CPU FQ
-cfreqwidget = widget({ type = 'textbox', name = 'cfreqwidget' , align = 'left'})
+--{{{ FQ
+tb_fq = widget({ type = 'textbox', name = 'tb_fq' , align = 'left'})
 --}}}
 --{{{ Cpu
 
-cpu0graphwidget = widget({ type = 'graph', name = 'cpu0graphwidget', align = 'left' }) 
-cpu0graphwidget.height = 0.8
-cpu0graphwidget.width = 60
-cpu0graphwidget.bg = beautiful.bg_focus
-cpu0graphwidget.border_color = beautiful.fg_urgent
-cpu0graphwidget.grow = 'left'
+gr_cpu0 = widget({ type = 'graph', name = 'gr_cpu0', align = 'left' }) 
+gr_cpu0.height = 0.8
+gr_cpu0.width = 60
+gr_cpu0.bg = beautiful.bg_focus
+gr_cpu0.border_color = beautiful.fg_urgent
+gr_cpu0.grow = 'left'
 
-cpu0graphwidget:plot_properties_set('cpu', { 
+gr_cpu0:plot_properties_set('cpu', { 
 style ='line',
 fg = beautiful.border_marked,
 fg_center = beautiful.color_green, 
 fg_end = beautiful.color_cyan, 
 vertical_gradient = true 
 })
-cpu1graphwidget = widget({ type = 'graph', name = 'cpu1graphwidget', align = 'left' }) 
-cpu1graphwidget.height = 0.8
-cpu1graphwidget.width = 60
-cpu1graphwidget.bg = beautiful.bg_focus
-cpu1graphwidget.border_color = beautiful.fg_urgent
-cpu1graphwidget.grow = 'left'
+gr_cpu1 = widget({ type = 'graph', name = 'gr_cpu1', align = 'left' }) 
+gr_cpu1.height = 0.8
+gr_cpu1.width = 60
+gr_cpu1.bg = beautiful.bg_focus
+gr_cpu1.border_color = beautiful.fg_urgent
+gr_cpu1.grow = 'left'
 
-cpu1graphwidget:plot_properties_set('cpu', { 
+gr_cpu1:plot_properties_set('cpu', { 
 style ="line",
 fg = beautiful.border_marked,
 fg_center = beautiful.color_green, 
@@ -177,7 +169,7 @@ pb_mem:bar_properties_set('mem',
 
 --}}}
 --{{{Date
-  datew = widget({type = 'textbox',name = 'datew',align = "right"  })
+  tb_date = widget({type = 'textbox',name = 'tb_date',align = "right"  })
 --}}}
 --{{{ Volume
  pb_volume =  widget({ type = "progressbar", name = "pb_volume", align = "right" })
@@ -209,20 +201,20 @@ botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "14", f
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
 --     skbwidget,
-     cfreqwidget,tb_space,
-     cpu0graphwidget,tb_space,
-     cpu1graphwidget,tb_space,
+     tb_fq,tb_space,
+     gr_cpu0,tb_space,
+     gr_cpu1,tb_space,
      pb_mem,tb_space,
      pb_bat,
-     tempwidget,tb_spacer,
+     tb_temp,tb_spacer,
         pb_volume,
 --     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
-     datew,mysystray
+     tb_date,mysystray
         }
 botbox[1].screen = 1
 
 --}}}
---{{{Hooks
+--{{{Hooks & functions 
 --{{{cpu
 cpu0_total = 0
 cpu0_active = 0
@@ -249,7 +241,7 @@ function get_cpu()
             cpu0_total = total_new
             cpu0_active = active_new
             
-            cpu0graphwidget:plot_data_add("cpu",usage_percent)
+            gr_cpu0:plot_data_add("cpu",usage_percent)
      elseif cpu_usage[1] == "cpu1" then
             ---- Calculate totals
             total_new = cpu_usage[2]+cpu_usage[3]+cpu_usage[4]+cpu_usage[5]
@@ -264,7 +256,7 @@ function get_cpu()
             cpu1_total = total_new
             cpu1_active = active_new
 
-            cpu1graphwidget:plot_data_add("cpu",usage_percent)
+            gr_cpu1:plot_data_add("cpu",usage_percent)
         
     end
 
@@ -311,7 +303,7 @@ function get_cfreq()
       end    
 
     m:close()
-cfreqwidget.text ="<span font_desc='sans bold 8'>"..cfreq.."</span>"
+tb_fq.text ="<span font_desc='sans bold 8'>"..cfreq.."</span>"
 end 
 --}}} 
 --{{{ temp hook
@@ -322,7 +314,7 @@ function get_temp()
       end    
 
     m:close()
-tempwidget.text =""..temp.."°"
+tb_temp.text =""..temp.."°"
 end 
 --}}} 
 --{{{ batt hook
@@ -358,7 +350,7 @@ end
 --{{{ date hook 
 function hook_timer ()
     os.setlocale(os.getenv("LC_ALL"))
-    datew.text = os.date('%a %d %b  %H:%M')
+    tb_date.text = os.date('%a %d %b  %H:%M')
 end
 -- }}}
 --{{{splitbywhitespace stolen from wicked.lua
@@ -459,12 +451,12 @@ end
         })
     end
 
-    datew.mouse_enter = function()
+    tb_date.mouse_enter = function()
         add_calendar(0)
     end
-    datew.mouse_leave = remove_calendar
+    tb_date.mouse_leave = remove_calendar
 
-    datew:buttons({
+    tb_date:buttons({
         button({ }, 4, function()
             add_calendar(-1)
         end),

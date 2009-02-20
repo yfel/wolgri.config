@@ -10,7 +10,7 @@ bg_urgent     = #737373
 
 fg_normal     = #CCCCCC
 fg_focus      = #E5E5E5
-fg_urgent     = #E4DACB
+fg_urgent     = #7F7F7F
 
 
 border_width  = 2

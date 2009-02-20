@@ -19,4 +19,5 @@ wicd-client&
 #fuse.sh restart
 wwwfox&
 wmname LG3D
+mount-gtk&
 /usr/bin/gnome-screensaver  --no-daemon
