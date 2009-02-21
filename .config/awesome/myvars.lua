@@ -1,4 +1,9 @@
 terminal = "urxvt"
+home_dir = os.getenv("HOME")
+--{{{ Beutiful
+theme_path = awful.util.getdir("config") .. "/themes/wolgri/theme"
+beautiful.init(theme_path)
+--}}}
 floatapps = {}
 floatapps =
 {

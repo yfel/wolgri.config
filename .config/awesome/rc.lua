@@ -11,12 +11,11 @@ require("debian.menu")
 -- Themes define colours, icons, and wallpapers
 -- The default is a dark theme
 --theme_path = "/usr/share/awesome/themes/default/theme"
-theme_path = "/home/wolgri/.config/awesome/themes/wolgri/theme"
 -- Uncommment this for a lighter theme
 -- theme_path = "/usr/share/awesome/themes/sky/theme"
 
 -- Actually load theme
-beautiful.init(theme_path)
+--beautiful.init(theme_path)
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"

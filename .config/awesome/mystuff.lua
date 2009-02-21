@@ -35,10 +35,10 @@ table.insert(globalkeys, key({ modkey, "Mod1" }, "Left", function () awful.clien
 table.insert(globalkeys, key({ }, "XF86AudioRaiseVolume", function () volume("up", pb_volume) end))
 table.insert(globalkeys, key({ }, "XF86AudioLowerVolume", function () volume("down", pb_volume) end))
 table.insert(globalkeys, key({ }, "XF86AudioMute", function () volume("mute", pb_volume) end))
-table.insert(globalkeys, key({none}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end))
-table.insert(globalkeys, key({none}, "XF86AudioNext", function () awful.util.spawn("mpc next") end))
-table.insert(globalkeys, key({none}, "XF86AudioStop", function () awful.util.spawn("mpc stop ") end))
-table.insert(globalkeys, key({none}, "XF86AudioPrev", function () awful.util.spawn("mpc prev ") end))
+table.insert(globalkeys, key({none}, "XF86AudioPlay", function () awful.util.spawn("mpc --no-status toggle") end))
+table.insert(globalkeys, key({none}, "XF86AudioNext", function () awful.util.spawn("mpc --no-status next") end))
+table.insert(globalkeys, key({none}, "XF86AudioStop", function () awful.util.spawn("mpc --no-status stop ") end))
+table.insert(globalkeys, key({none}, "XF86AudioPrev", function () awful.util.spawn("mpc --no-status prev ") end))
 table.insert(globalkeys, key({none}, "XF86Sleep", function () awful.util.spawn("sudo pm-suspend --quirk-dpms-on --quirk-vbestate-restore --quirk-vbemode-restore") end))
 table.insert(globalkeys, key({none}, "XF86HomePage", function () awful.util.spawn("sudo cpufreq-set -g ondemand") end))
 table.insert(globalkeys, key({none}, "XF86Start", function () awful.util.spawn("sudo cpufreq-set -g powersave") end))
@@ -193,11 +193,15 @@ pb_volume:buttons({
  })
 
 --}}}
+--{{{ MPD 
+tb_mpdbox = widget({ type = "textbox", name = "tb_mpdbox", align = "right" })
 --}}}
--- {{{Bottom panel
+
+--}}}
+-- {{{My panel
 -- Create a botbox for each screen and add it
 botbox = {}
-botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "14", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
+botbox[1] = wibox({ position = "top", name = "botbox" .. 1 , height = "14", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
 --     skbwidget,
@@ -206,6 +210,7 @@ botbox[1].widgets = {
      gr_cpu1,tb_space,
      pb_mem,tb_space,
      pb_bat,
+     tb_mpdbox,
      tb_temp,tb_spacer,
         pb_volume,
 --     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
@@ -215,6 +220,106 @@ botbox[1].screen = 1
 
 --}}}
 --{{{Hooks & functions 
+--{{{ Tools
+ -- Set foreground color
+ function fg(color, text)
+   return '<span color="' .. color .. '">' .. text .. '</span>'
+ end
+
+ -- Boldify text
+ function bold(text)
+   return '<b>' .. text .. '</b>'
+ end
+
+ -- Widget value
+ function widget_value(content, next_value)
+   local value
+   if content and content ~= nil then
+     value = content
+     if next_value and next_value ~= "" then
+       value = value .. fg(hilight, " / ") .. next_value
+     end
+   else
+     value = next_value
+   end
+   return value
+ end
+--}}}
+--{{{ MPD
+-- Widget base
+-- [content]
+function widget_base(content)
+  if content and content ~= "" then
+    return fg(hilight, " [ ") .. content .. fg(hilight, " ] ")
+  end
+end
+-- Widget section
+-- label: content (| next_section)?
+function widget_section(label, content, next_section)
+  local section
+  if content and content ~= nil then
+    if label and label ~= "" then
+      section = bold(label .. ": ") .. content
+    else
+      section = content
+    end
+    if next_section and next_section ~= "" then
+      section = section .. fg(hilight, " | ") .. next_section
+    end
+  else
+    section = next_section
+  end
+  return section
+end
+
+-- Get and format MPD status
+-- (need the mpd lib for lua)
+require("mpd")
+
+function widget_mpd()
+  function _timeformat(t)
+    if tonumber(t) >= 60 * 60 then -- more than one hour !
+      return os.date("%X", t)
+    else
+      return os.date("%M:%S", t)
+    end
+  end
+
+  function _unknowize(x)
+    return awful.escape(x or "(unknow)")
+  end
+
+  local now_playing, status, total_time, current_time
+  local stats = mpd.send("status")
+
+  if not stats.state then
+    return widget_base(widget_section("MPD", "not launched?"))
+  end
+
+  if stats.state == "stop" then
+    return widget_base(widget_section("MPD", "stopped."))
+  end
+
+  local zstats = mpd.send("playlistid " .. stats.songid)
+  now_playing = _unknowize(zstats.artist) ..  " - " ..  _unknowize(zstats.title)
+
+  if stats.state ~= "play" then
+    now_playing = now_playing .. " (" .. stats.state .. ")"
+  end
+
+  current_time   = _timeformat(stats.time:match("(%d+):"))
+  total_time     = _timeformat(stats.time:match("%d+:(%d+)"))
+
+  return widget_base(
+          widget_section("now playing", now_playing,
+          widget_section("Time", widget_value(current_time, total_time),
+          widget_section("Vol", stats.volume))))
+end
+function hook_mpd()
+  tb_mpdbox.text = widget_mpd()
+end
+
+--}}}
 --{{{cpu
 cpu0_total = 0
 cpu0_active = 0
@@ -502,8 +607,7 @@ awful.hooks.timer.register(1, hook_timer)
 awful.hooks.timer.register(1, get_mem)
 awful.hooks.timer.register(1, get_cpu)
 awful.hooks.timer.register(1, get_cfreq)
---awful.hooks.timer.register(1, get_skb)
---awful.hooks.timer.register(1, update_iwinfo)
+--awful.hooks.timer.register(1, hook_mpd)
 awful.hooks.timer.register(3, get_bat)
 awful.hooks.timer.register(3, get_temp)
 --}}}
