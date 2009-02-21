@@ -1,0 +1,9 @@
+Gtk apps hide menubar module 
+borrowed from 
+http://www.linux.org.ru/view-message.jsp?msgid=3476252&lastmod=1233865725194#3476945 
+Use:
+ make  , than copy libwinmenu.so to 
+ gtk modules dir  /usr/lib/gtk-2.0/modules/
+Run :
+ GTK_MODULES=winmenu ; <youre gtk2app>
+ Ctrl+m and vuala
