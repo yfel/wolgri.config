@@ -2,8 +2,8 @@
 #{{{
 style "my-default"
 {
-    engine "mist" { } 
-#     engine "hcengine" { edge_thickness=1 } 
+#    engine "mist" { } 
+     engine "hcengine" { edge_thickness=1 } 
 
 #{{{ Options
   GtkScrolledWindow::scrollbar-spacing = 0
