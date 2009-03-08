@@ -19,15 +19,13 @@
   table.insert(menu_items, { "Debian", debian.menu.Debian_menu.Debian, freedesktop.utils.lookup_icon({ icon = 
   'debian-logo' }) })
 
-  mymainmenu = awful.menu.new({ items = menu_items, width = 150 })
+  mymainmenu = awful.menu.new({ items = menu_items})
 
   mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
-
-
   -- desktop icons
-  require('freedesktop.desktop')
-  for s = 1, screen.count() do
-     freedesktop.desktop.add_desktop_icons({screen = s, showlabels = true})
-  end
+--  require('freedesktop.desktop')
+--  for s = 1, screen.count() do
+--     freedesktop.desktop.add_desktop_icons({screen = s, showlabels = true})
+--  end
 
