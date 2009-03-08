@@ -2,7 +2,7 @@
 --    "Wolgri" awesome theme    --
 -------------------------------
 # BASICS
-font          = sans bold 8
+font          = Profont 8
 
 bg_focus      = #737373
 bg_normal     = #4D4D4D
@@ -14,8 +14,9 @@ fg_urgent     = #7F7F7F
 
 
 border_width  = 2
-border_normal = #B3B3B3
-border_focus  = #4D4D4D
+border_normal = #4D4D4D
+border_focus  = #B3B3B3
+
 border_marked = #FFA500
 
 color_green = #00FF00

@@ -193,9 +193,6 @@ pb_volume:buttons({
  })
 
 --}}}
---{{{ MPD 
-tb_mpdbox = widget({ type = "textbox", name = "tb_mpdbox", align = "right" })
---}}}
 
 --}}}
 -- {{{My panel
@@ -244,81 +241,6 @@ botbox[1].screen = 1
    end
    return value
  end
---}}}
---{{{ MPD
--- Widget base
--- [content]
-function widget_base(content)
-  if content and content ~= "" then
-    return fg(hilight, " [ ") .. content .. fg(hilight, " ] ")
-  end
-end
--- Widget section
--- label: content (| next_section)?
-function widget_section(label, content, next_section)
-  local section
-  if content and content ~= nil then
-    if label and label ~= "" then
-      section = bold(label .. ": ") .. content
-    else
-      section = content
-    end
-    if next_section and next_section ~= "" then
-      section = section .. fg(hilight, " | ") .. next_section
-    end
-  else
-    section = next_section
-  end
-  return section
-end
-
--- Get and format MPD status
--- (need the mpd lib for lua)
-require("mpd")
-
-function widget_mpd()
-  function _timeformat(t)
-    if tonumber(t) >= 60 * 60 then -- more than one hour !
-      return os.date("%X", t)
-    else
-      return os.date("%M:%S", t)
-    end
-  end
-
-  function _unknowize(x)
-    return awful.escape(x or "(unknow)")
-  end
-
-  local now_playing, status, total_time, current_time
-  local stats = mpd.send("status")
-
-  if not stats.state then
-    return widget_base(widget_section("MPD", "not launched?"))
-  end
-
-  if stats.state == "stop" then
-    return widget_base(widget_section("MPD", "stopped."))
-  end
-
-  local zstats = mpd.send("playlistid " .. stats.songid)
-  now_playing = _unknowize(zstats.artist) ..  " - " ..  _unknowize(zstats.title)
-
-  if stats.state ~= "play" then
-    now_playing = now_playing .. " (" .. stats.state .. ")"
-  end
-
-  current_time   = _timeformat(stats.time:match("(%d+):"))
-  total_time     = _timeformat(stats.time:match("%d+:(%d+)"))
-
-  return widget_base(
-          widget_section("now playing", now_playing,
-          widget_section("Time", widget_value(current_time, total_time),
-          widget_section("Vol", stats.volume))))
-end
-function hook_mpd()
-  tb_mpdbox.text = widget_mpd()
-end
-
 --}}}
 --{{{cpu
 cpu0_total = 0
@@ -455,7 +377,8 @@ end
 --{{{ date hook 
 function hook_timer ()
     os.setlocale(os.getenv("LC_ALL"))
-    tb_date.text = os.date('%a %d %b  %H:%M')
+    tb_date.text ="<span font_desc='terminus 7'>"..os.date(' %a%d%b').."</span><span font_desc='sans bold 8'>"..os.date(' %H:%M').."</span>"
+
 end
 -- }}}
 --{{{splitbywhitespace stolen from wicked.lua
@@ -525,51 +448,6 @@ function batteryInfo(adapter)
     batterywidget.text = setFg(beautiful.fg_focus, "Battery: ")..dir..battery.."% "
 end
 -- }}}
---{{{Naughty Callendar
- local calendar = nil
-    local offset = 0
-
-    function remove_calendar()
-        if calendar ~= nil then
-            naughty.destroy(calendar)
-            calendar = nil
-            offset = 0
-        end
-    end
-
-    function add_calendar(inc_offset)
-        local save_offset = offset
-        remove_calendar()
-        offset = save_offset + inc_offset
-        local datespec = os.date("*t")
-        datespec = datespec.year * 12 + datespec.month - 1 + offset
-        datespec = (datespec % 12 + 1) .. " " .. math.floor(datespec / 12)
-        local cal = awful.util.pread("cal -m " .. datespec)
-        cal = string.gsub(cal, "^%s*(.-)%s*$", "%1")
-        calendar = naughty.notify({
-            text = os.date("%a, %d %B %Y") .. "\n" .. cal,
-            timeout = 0, hover_timeout = 0.5,
-            width = 160,
-            position  = "bottom_right",
-            fg ="black", bg = "gray70",
-
-        })
-    end
-
-    tb_date.mouse_enter = function()
-        add_calendar(0)
-    end
-    tb_date.mouse_leave = remove_calendar
-
-    tb_date:buttons({
-        button({ }, 4, function()
-            add_calendar(-1)
-        end),
-        button({ }, 5, function()
-            add_calendar(1)
-        end),
-    })
---}}}
 --{{{ Volume 
 cardid  = 0
 channel = "Master"
