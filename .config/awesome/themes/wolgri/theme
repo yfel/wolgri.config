@@ -57,6 +57,6 @@ wallpaper_cmd = xsetroot -solid '#222222'
 
 taglist_squares = true
 titlebar_close_button = true
-menu_height   = 15
-menu_width    = 100
+menu_height   = 24
+menu_width    = 120
 

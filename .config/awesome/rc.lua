@@ -4,8 +4,6 @@ require("awful")
 require("beautiful")
 -- Notification library
 require("naughty")
--- Load Debian menu entries
-require("debian.menu")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -88,7 +86,7 @@ require("myvars")
 --end
 -- }}}
 require("mytags")
-
+require("mymenu")
 -- {{{ Wibox
 -- Create a textbox widget
 mytextbox = widget({ type = "textbox", align = "right" })
@@ -96,18 +94,18 @@ mytextbox = widget({ type = "textbox", align = "right" })
 mytextbox.text = "<b><small> " .. AWESOME_RELEASE .. " </small></b>"
 
 -- Create a laucher widget and a main menu
-myawesomemenu = {
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-   { "restart", awesome.restart },
-   { "quit", awesome.quit }
-}
-
-mymainmenu = awful.menu.new({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                        { "open terminal", terminal }
-                                      }
-                            })
-
+--myawesomemenu = {
+--   { "manual", terminal .. " -e man awesome" },
+--   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
+--   { "restart", awesome.restart },
+--   { "quit", awesome.quit }
+--}
+--
+--mymainmenu = awful.menu.new({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+--                                        { "open terminal", terminal }
+--                                      }
+--                            })
+--
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 
