@@ -211,7 +211,7 @@ botbox[1].widgets = {
      tb_temp,tb_spacer,
         pb_volume,
 --     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
-     tb_date,mysystray
+     tb_date
         }
 botbox[1].screen = 1
 
