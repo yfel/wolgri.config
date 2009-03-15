@@ -1,0 +1,163 @@
+
+#{{{
+style "my-default"
+{
+#    engine "mist" { } 
+     engine "hcengine" { edge_thickness=1 } 
+
+#{{{ Options
+  GtkScrolledWindow::scrollbar-spacing = 0
+  GtkContainer::border_width = 1
+  GtkButton::default_border = { 0, 0, 0, 0 }
+  GtkButton::interior-focus = 1
+  GtkButton::interior-focus = 0
+  GtkButton::focus-padding = 0
+  GtkButton::focus-line-width = 0
+  GtkButton::focus-line-height = 0
+  GtkButton::inner-border = {0, 0, 0, 0}
+  GtkRange::trough_border = 0
+  GtkPaned::handle_size = 5
+  GtkRange::trough_border = 0
+  GtkRange::slider_width = 13
+  GtkRange::stepper_size = 13
+  GtkOptionMenu::indicator_spacing = { 2, 2, 2, 2 }
+  GtkOptionMenu::indicator_size = { 12, 10 }
+  GtkMenu::vertical_padding = 2
+  GtkMenu::horizontal_padding = 1
+  GtkEntry::inner-border	     = { 0, 0, 0, 0 }
+  GtkNotebook::tab-border = 1
+  GtkNotebook::tab-hborder = 1
+  GtkNotebook::tab-vborder = 2
+  GtkNotebook::show-border = 0
+  GtkNotebook::gtk-button-images = 1
+  GtkNotebook::gtk-menu-images = 1
+  GtkNotebook::arrow-spacing = 0
+  GtkNotebook::tab-curvature = 0
+  GtkNotebook::tab-overlap = 0
+  GtkNotebook::focus-line-width = 0
+  GtkScrollbar::min_slider_length = 30
+  GtkMenuBar::internal-padding  = 0
+  GtkTreeView::expander_size = 12
+  GtkExpander::expander_size = 12
+  GtkScale::slider-length = 27
+  GtkToolbar::button-relief = GTK_RELIEF_NORMAL
+  GtkMenuBar::shadow-type = GTK_SHADOW_OUT
+  GtkScrollbar::has-secondary-forward-stepper = 1
+  GtkScrollbar::has-secondary-backward-stepper = 1
+  GtkComboBox::appears-as-list = 0
+  GtkComboBox::arrow-size = 2
+  GtkButton::child-displacement-x = 2
+  GtkButton::child-displacement-y = 1
+  WnckTasklist::fade-overlay-rect = 1
+  GtkTreeView::focus-line-width = 0
+  GtkTreeView::spacing = 2
+  GtkTreeView::row-ending-details = 0
+  GtkTreeView::treeview-left=1
+  GtkTreeView::treeview-middle=0
+  GtkTreeView::tree-line-pattern = "\001\001"
+  GtkTreeView::grid-line-pattern = "\001\001"
+  GtkTreeView::grid-line-width = 0
+  GtkButtonBox::child-min-height=18
+  GtkButtonBox::child-min-width=18
+  GtkButtonBox::child-internal-pad-x=0
+  GtkButtonBox::child-internal-pad-y=0
+  GtkCheckButton::indicator-spacing=1
+  GtkCheckButton::indicator-size=13
+  GtkRadioButton::indicator-spacing=1
+  GtkCheckMenuItem::indicator-size=13
+  xthickness = 3
+  ythickness = 1
+#}}}
+
+#{{{ Colors
+
+    fg[ACTIVE] = "green3" # Light Gray
+    fg[SELECTED] = "black" # White
+    fg[NORMAL] = "cyan2" # Light Gray
+    fg[PRELIGHT] = "black" # White
+    fg[INSENSITIVE] = "red" # 3D Shadow
+ 
+    bg[ACTIVE] = "gray30" # Dark Gray
+    bg[SELECTED] = "white" # Dark Gray
+    bg[NORMAL] = "gray10" # Basic 3D Hilight
+    bg[PRELIGHT] = "gray96" # Gray Hilight
+    bg[INSENSITIVE] = "gray40" # Basic 3D Hilight
+ 
+    base[ACTIVE] = "gray10" # Basic 3D Dark
+    base[SELECTED] = "cyan" # Dark Gray
+    base[NORMAL] = "gray25" # White - Gray
+    base[PRELIGHT] = "gray50" # Dark Gray
+    base[INSENSITIVE] = "gray80" # Gray Medium
+ 
+    text[ACTIVE] = "green" # Light Gray
+    text[SELECTED] = "black" # Light Gray
+    text[NORMAL] = "cyan" # Black
+    text[PRELIGHT] = "white" # White
+    text[INSENSITIVE] = "cyan" # 3D Shadow
+ 
+#}}}
+
+}
+#}}}
+
+#{{{
+style "my-frame"
+{
+    xthickness = 0
+    ythickness = 0
+    GtkButton::default_border = { 1, 1, 1, 1 }
+}
+
+style "my-tooltips" 
+{
+	xthickness = 1
+	ythickness = 1
+	bg[NORMAL] = "#181a18"
+}
+
+style "my-progressbar"
+{
+    bg[NORMAL] = "red"
+    bg[PRELIGHT] = "green"
+    base[SELECTED] = "green"
+    text[ACTIVE] = "gray90" 
+    text[SELECTED] = "black"
+    text[NORMAL] = "black"
+    text[PRELIGHT] = "black"
+    text[INSENSITIVE] = "black"
+    xthickness = 1
+    ythickness = 1
+
+}
+#}}}
+
+#{{{
+class "GtkProgressBar" style "my-progressbar"
+class "GtkWidget" style "my-default"
+class "GtkButton" style "my-default"
+class "GtkRange" style "my-default"
+class "GtkFrame" style "my-frame"
+class "GtkStatusbar" style "my-default"
+class "GtkMenu" style "my-default"
+class "*MenuBar*"      style "my-default"
+class "GtkMenuItem" style "my-default"
+class "GtkScrollbar"            style "my-default"
+widget_class "*.GtkMenuItem.*" style "my-default"
+widget_class "*.GtkAccelMenuItem.*" style "my-default"
+widget_class "*.GtkRadioMenuItem.*" style "my-default"
+widget_class "*.GtkCheckMenuItem.*" style "my-default"
+widget_class "*.GtkImageMenuItem.*" style "my-default"
+widget_class "*.GtkSeparatorMenuItem.*" style "my-default"
+class "GtkEntry" style "my-default"
+
+widget_class "*.tooltips.*.GtkToggleButton" style "my-default"
+widget_class "*.GtkTreeView.GtkButton" style "my-default"
+widget_class "*.GtkCTree.GtkButton" style "my-default"
+widget_class "*.GtkList.GtkButton" style "my-default"
+widget_class "*.GtkCList.GtkButton" style "my-default"
+widget_class "*.GtkFrame.GtkLabel" style "my-default"
+widget_class "BasePWidget.GtkEventBox.GtkTable.GtkFrame" style "my-default"
+widget "gtk-tooltips" style "my-default"
+#}}}
+
+# vim: set fdm=marker tabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent nu:
