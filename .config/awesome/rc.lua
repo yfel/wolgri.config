@@ -440,4 +440,6 @@ end)
 --    mytextbox.text = os.date(" %a %b %d, %H:%M ")
 -- end)
 -- }}}
+require("keybindings")
 require("mystuff")
+
