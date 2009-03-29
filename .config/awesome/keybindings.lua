@@ -14,7 +14,7 @@ table.insert(globalkeys, key({ modkey, "Shift" }, "Down", function () awful.tag.
 table.insert(globalkeys, key({ modkey, "Shift" }, "Up", function () awful.tag.incnmaster(-1) end))
 table.insert(globalkeys, key({ modkey, "Control" }, "Down", function () awful.tag.incncol(1) end))
 table.insert(globalkeys, key({ modkey, "Control" }, "Up", function () awful.tag.incncol(-1) end))
-table.insert(globalkeys, key({"Control"}, "Escape", function () awful.util.spawn(xlock) end))
+table.insert(globalkeys, key({"Control"}, "Escape", function () awful.util.spawn(screensaver) end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Left", function () awful.client.focus.byidx(1); client.focus:lower() end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Right", function () awful.client.focus.byidx(1); client.focus:raise() end))
 table.insert(globalkeys, key({ modkey }, "F3", function () awful.util.spawn("mocp -G") end))

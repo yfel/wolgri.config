@@ -25,7 +25,7 @@ shopt -s cmdhist
 shopt -s checkwinsize
 shopt -s no_empty_cmd_completion
 shopt -s promptvars
-set -o noclobber
+set +o noclobber
 #kill flow control
 if tty -s ; then
     stty -ixon

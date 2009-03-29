@@ -408,13 +408,25 @@ awful.hooks.manage.register(function (c, startup)
 
     -- Set key bindings
     c:keys(clientkeys)
+    -- Put windows at the end of others instead of setting them as a master
+    --awful.client.setslave(c)
+    -- ...or do it selectively for certain tags
+    if awful.tag.getproperty(awful.tag.selected(mouse.screen), "setslave") then
+        awful.client.setslave(c)
+    end
+    -- 
+    -- New floating windows don't cover the wibox and don't overlap until it's unavoidable
+    awful.placement.no_offscreen(c)
+    --awful.placement.no_overlap(c)
+    -- 
+
 
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    -- awful.client.setslave(c)
+     awful.client.setslave(c)
 
     -- Honor size hints: if you want to drop the gaps between windows, set this to false.
-    -- c.size_hints_honor = false
+     c.size_hints_honor = false
 end)
 
 -- Hook function to execute when arranging the screen.

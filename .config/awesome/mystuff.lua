@@ -422,3 +422,4 @@ awful.hooks.timer.register(1, get_cfreq)
 awful.hooks.timer.register(3, get_bat)
 awful.hooks.timer.register(3, get_temp)
 --}}}
+--os.execute("sh ~/.autostart")

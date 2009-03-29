@@ -1,4 +1,5 @@
 terminal = "urxvt"
+screensaver= "xscreensaver-command -lock"
 home_dir = os.getenv("HOME")
 --{{{ Beutiful
 theme_path = awful.util.getdir("config") .. "/themes/wolgri/theme"

@@ -8,10 +8,10 @@ XTerm*metaSendsEscape: true
 XTerm*geometry: 50x25
 
 ! URXVT Colors
-URxvt*background:       gray10
-URxvt*foreground:       gray90
+URxvt*background:       black
+URxvt*foreground:       white
 !Black text
-URxvt*color0:           gray10
+URxvt*color0:           white
 URxvt*color8:           gray15
 !Red text
 URxvt*color1:           red
@@ -23,8 +23,8 @@ URxvt*color10:          green2
 URxvt*color3:           yellow
 URxvt*color11:          yellow1
 !Blue text
-URxvt*color4:           royal blue
-URxvt*color12:          dodger blue
+URxvt*color4:           blue
+URxvt*color12:          blue2
 !Magenta text
 URxvt*color5:           magenta2
 URxvt*color13:          magenta
@@ -45,8 +45,11 @@ URxvt.geometry: 80x30
 URxvt.scrollBar:        false
 URxvt.xftAntialias:     true
 URxvt.font: xft:Terminus:style=Regular:pixelsize=14
+URxvt.font:     -xos4-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
+URxvt.boldFont: -xos4-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
 
-! URxvt.perl-ext:mark-urls,default
+
+URxvt.perl-ext:mark-urls,default
 URxvt.tabbed.tabbar-fg: 2
 URxvt.tabbed.tabbar-bg: 4
 URxvt.tabbed.tab-fg: 0
@@ -55,7 +58,7 @@ Urxvt.inheritPixmap:    false
 URxvt.transparen: true
 URxvt.tintColor:white
 URxvt.shading: 30
-! URxvt.urlLauncher: /usr/bin/firefox
+URxvt.urlLauncher: /usr/bin/swiftfox
 URxvt.jumpScroll:               True
 URxvt.scrollstyle:              plain
 URxvt.loginShell:               False
