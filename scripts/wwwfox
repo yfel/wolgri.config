@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/bin/swiftfox -P default
+$HOME/stuff/firefox/firefox/firefox -P www

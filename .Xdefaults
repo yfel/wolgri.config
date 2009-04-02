@@ -8,7 +8,7 @@ XTerm*metaSendsEscape: true
 XTerm*geometry: 50x25
 
 ! URXVT Colors
-URxvt*background:       black
+URxvt*background:       #10121F
 URxvt*foreground:       white
 !Black text
 URxvt*color0:           white
@@ -23,8 +23,8 @@ URxvt*color10:          green2
 URxvt*color3:           yellow
 URxvt*color11:          yellow1
 !Blue text
-URxvt*color4:           blue
-URxvt*color12:          blue2
+URxvt*color4:           #0126F2
+URxvt*color12:          #6201F2
 !Magenta text
 URxvt*color5:           magenta2
 URxvt*color13:          magenta
@@ -44,9 +44,10 @@ URxvt*title: Terminal
 URxvt.geometry: 80x30
 URxvt.scrollBar:        false
 URxvt.xftAntialias:     true
-URxvt.font: xft:Terminus:style=Regular:pixelsize=14
-URxvt.font:     -xos4-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
-URxvt.boldFont: -xos4-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
+URxvt.font: xft:Lucida Sans Typewriter:style=normal:pixelsize=11
+!URxvt.font:     -xos4-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
+URxvt.boldFont: xft:Lucida Sans Typewriter:style=Bold:pixelsize=11
+
 
 
 URxvt.perl-ext:mark-urls,default

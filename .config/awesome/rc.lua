@@ -11,7 +11,7 @@ require("naughty")
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 -- The default is a dark theme
-theme_path = "/usr/share/awesome/themes/default/theme"
+--theme_path = "/usr/share/awesome/themes/default/theme"
 -- Uncommment this for a lighter theme
 -- theme_path = "/usr/share/awesome/themes/sky/theme"
 
@@ -417,7 +417,8 @@ awful.hooks.manage.register(function (c, startup)
     -- 
     -- New floating windows don't cover the wibox and don't overlap until it's unavoidable
     awful.placement.no_offscreen(c)
-    --awful.placement.no_overlap(c)
+    awful.placement.no_overlap(c)
+    smart_placement = true
     -- 
 
 

@@ -5,6 +5,13 @@ export LC_ALL=uk_UA.UTF-8
 export GTK_MODULES=winmenu 
 export OOO_FORCE_DESKTOP="gnome"
 export MOZ_DISABLE_PANGO=1
+
+#export LC_CTYPE="en_US.utf8"
+#export XMODIFIERS=@im=SCIM
+#export GTK_IM_MODULE="scim"
+#export QT_IM_MODULE="scim-bridge"
+#scim -d
+
 xset fp+ /home/wolgri/.fonts/ 
 xset fp rehash
 xrdb $HOME/.Xdefaults
@@ -27,10 +34,12 @@ synclient HorizEdgeScroll=0
 synclient VertEdgeScroll=0
 synclient CircularScrolling=0
 ivman &
-awesome 2> $HOME/awesome.err
+awesome 2> $HOME/awesome.err&
 lilyterm -t 2 -e screen -ddR grw & 
 nitrogen --restore
+## VNC session 
 #x11vnc -usepw -shared -forever > /dev/null &
 wicd-client&
 wwwfox&
+xxkb&
 exec xscreensaver
