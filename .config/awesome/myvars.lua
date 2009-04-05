@@ -24,6 +24,7 @@ apptags = {}
 apptags =
 {
      ["Swiftfox"] = { screen = 1, tag = 2 },
+     ["Navigator"] = { screen = 1, tag = 2 },
      ["lilyterm"] = { screen = 1, tag = 1 },
      ["vmware"] = { screen = 1, tag = 5 },
      ["VirtualBox"] = { screen = 1, tag = 5 },
