@@ -1,0 +1,21 @@
+XXkb.xpm.path: /home/wolgri/.icons/xxkb
+
+XXkb.mainwindow.enable: yes
+XXkb.button.enable: no
+XXkb.controls.two_state: no
+
+XXkb.controls.add_when_start: no
+XXkb.controls.add_when_create: no
+XXkb.controls.add_when_change: yes
+XXkb.controls.focusout: yes
+XXkb.mainwindow.in_tray: KDE2
+
+XXkb.mainwindow.appicon:yes 
+XXkb.mainwindow.geometry: 20x20
+XXkb.mainwindow.xpm.1: en18.xpm
+XXkb.mainwindow.xpm.3: ru18.xpm
+XXkb.mainwindow.xpm.2: ua18.xpm
+
+XXkb.group.base: 1
+XXkb.group.alt: 2
+

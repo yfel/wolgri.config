@@ -41,5 +41,4 @@ nitrogen --restore
 #x11vnc -usepw -shared -forever > /dev/null &
 wicd-client&
 wwwfox&
-xxkb&
 exec xscreensaver
