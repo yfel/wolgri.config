@@ -37,5 +37,3 @@ tags[1][6].screen = 1
 awful.layout.set(layouts[1], tags[1][6])
 
 tags[1][1].selected = true
-
--- vim: set filetype=lua fdm=marker tabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent nu:

@@ -84,50 +84,8 @@ max_value = 100
 })
 
 --}}}
---{{{Battery (BAT0)
-function batteryInfo(adapter)
-    local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")    
-    local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
-    local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
-    local cur = fcur:read()
-    fcur:close()
-    local cap = fcap:read()
-    fcap:close()
-    local sta = fsta:read()
-    fsta:close()
-    
-    local battery = math.floor(cur * 100 / cap)
-    
-    if sta:match("Charging") then
-        dir = "^"
-        battery = "A/C ("..battery..")"
-    elseif sta:match("Discharging") then
-        dir = "v"
-        if tonumber(battery) >= 25 and tonumber(battery) <= 50 then
-            battery = setFg("#e6d51d", battery)
-        elseif tonumber(battery) < 25 then
-            if tonumber(battery) <= 10 then
-                naughty.notify({ title      = "Battery Warning"
-                               , text       = "Battery low! "..battery.."% left!"
-                               , timeout    = 30
-                               , position   = "top_right"
-                               , fg         = beautiful.fg_focus
-                               , bg         = beautiful.bg_focus
-                               })
-            end
-            battery = setFg("#ff6565", battery)
-        else
-            battery = battery
-        end
-    else
-        dir = "="
-        battery = "A/C"
-    end
-    
-    batterywidget.text = setFg(beautiful.fg_focus, "Battery: ")..dir..battery.."% "
-end
--- }}}
---{{{ batt hook
+tb_bat = widget({ type = 'textbox', name = 'tb_bat' , align = 'left'})
+--{{{ batt function
 local function get_bat()
    local a = io.open("/sys/class/power_supply/BAT1/charge_full")
     for line in a:lines() do
@@ -147,21 +105,21 @@ batt=math.floor(now*100/full)
                                , text       = "Battery low! "..batt.."% left!"
                                , timeout    = 30
                                , position   = "top_right"
-                               , fg         = beautiful.fg_focus
-                               , bg         = beautiful.bg_focus
+                               , fg         = beautiful.color_red
+                               , bg         = beautiful.fg_focus
                                })
             end
             batt = batt
 
 pb_bat:bar_data_add("bat",batt )
+tb_bat.text ="<span font_desc='sans bold 8'>"..batt.."% </span>"
 end
-
 --}}}
 
 --{{{ temp
-tb_temp = widget({ type = 'textbox', name = 'tb_fq' , align = 'right' })
+tb_temp = widget({ type = 'textbox', name = 'tb_fq' , align = 'left' })
 --}}}
---{{{ temp hook
+--{{{ temp function
 function get_temp()
     local m = io.popen("echo \"scale=0 ;`cat /sys/bus/pci/drivers/k8temp/*/temp1_input`/1000 \"| bc -l")
       for line in m:lines() do
@@ -178,7 +136,7 @@ tb_fq = widget({ type = 'textbox', name = 'tb_fq' , align = 'left'})
 --}}}
 --{{{ Cpu freq function
 function get_cfreq()
-    local m = io.popen("cpufreq-info -p | awk '{print $3 }'")
+    local m = io.popen("cpufreq-info -fm")
       for line in m:lines() do
             cfreq = line
       end    
@@ -292,6 +250,7 @@ pb_mem:bar_properties_set('mem',
 })
 
 --}}}
+tb_mem = widget({ type = 'textbox', name = 'tb_mem' , align = 'left'})
 --{{{ mem function
 function get_mem()
   local mem_free, mem_total, mem_c, mem_b
@@ -321,13 +280,15 @@ function get_mem()
 
   mem_percent = 100 * (mem_total - mem_free - mem_b - mem_c ) / mem_total;
  pb_mem:bar_data_add("mem",mem_percent)
+ tb_mem.text ="<span font_desc='sans bold 8'>"..mem_percent.."</span>"
+
 end
 --}}}
 
 --{{{Date
   tb_date = widget({type = 'textbox',name = 'tb_date',align = "right"  })
 --}}}
---{{{ date hook 
+--{{{ date function 
 function hook_timer ()
     os.setlocale(os.getenv("LC_ALL"))
     tb_date.text ="<span font_desc='terminus 7'>"..os.date(' %a%d%b').."</span><span font_desc='sans bold 8'>"..os.date(' %H:%M').."</span>"
@@ -366,9 +327,7 @@ channel = "Master"
         local status = io.popen("amixer -c " .. cardid .. " -- sget " .. channel):read("*all")
         
         local volume = string.match(status, "(%d?%d?%d)%%")
- 
         status = string.match(status, "%[(o[^%]]*)%]")
- 
         if string.find(status, "on", 1, true) then
             widget:bar_properties_set("vol", {["bg"] = "#000000"})
         else
@@ -394,17 +353,16 @@ volume("update", pb_volume);
 -- {{{My panel
 -- Create a botbox for each screen and add it
 botbox = {}
-botbox[1] = wibox({ position = "top", name = "botbox" .. 1 , height = "14", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
+botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "14", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
---     skbwidget,
+     tb_temp,tb_space,
      tb_fq,tb_space,
      gr_cpu0,tb_space,
      gr_cpu1,tb_space,
      pb_mem,tb_space,
-     pb_bat,
+     pb_bat,tb_bat,
      tb_mpdbox,
-     tb_temp,tb_spacer,
         pb_volume,
 --     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
      tb_date
@@ -418,8 +376,9 @@ awful.hooks.timer.register(1, hook_timer)
 awful.hooks.timer.register(1, get_mem)
 awful.hooks.timer.register(1, get_cpu)
 awful.hooks.timer.register(1, get_cfreq)
---awful.hooks.timer.register(1, hook_mpd)
 awful.hooks.timer.register(3, get_bat)
 awful.hooks.timer.register(3, get_temp)
 --}}}
 --os.execute("sh ~/.autostart")
+awful.util.spawn("killall xxkb")
+awful.util.spawn("xxkb")

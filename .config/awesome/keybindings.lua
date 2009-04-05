@@ -1,5 +1,4 @@
 --{{{ Base keybindings 
---keybinding({ modkey }, "F2", revelation.revelation):add()
 table.insert(globalkeys, key({ modkey }, "F5", function () client.focus.fullscreen = not client.focus.fullscreen end))
 table.insert(clientkeys, key({ modkey }, "w", function (c) c:kill() end))
 table.insert(globalkeys, key({ modkey }, "Left", function () awful.client.focus.byidx(1); if client.focus then client.focus:raise() end end))
