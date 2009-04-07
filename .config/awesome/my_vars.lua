@@ -1,5 +1,59 @@
+terminal = "urxvt"
+screensaver= "xscreensaver-command -lock"
+home_dir = os.getenv("HOME")
+usetags="mytags"
+usemode="laptop"
+--{{{ Beutiful
+theme_path = awful.util.getdir("config") .. "/themes/wolgri/theme"
+beautiful.init(theme_path)
+--}}}
+--{{{ Windows 
+floatapps = {}
+floatapps =
+{
+    -- by class
+    ["MPlayer"] = true,
+    ["pinentry"] = true,
+--    ["gimp"] = true,
+    ["wicd-client.py"] = true,
+
+    -- by instance
+    ["mocp"] = true
+}
+
+-- Applications to be moved to a pre-defined tag by class or instance.
+-- Use the screen and tags indices.
+apptags = {}
+apptags =
+{
+     ["Swiftfox"] = { screen = 1, tag = 2 },
+     ["Navigator"] = { screen = 1, tag = 2 },
+     ["lilyterm"] = { screen = 1, tag = 1 },
+     ["vmware"] = { screen = 1, tag = 5 },
+     ["VirtualBox"] = { screen = 1, tag = 5 },
+     ["gajim.py"] = { screen = 1, tag = 3 },
+
+
+}
+--}}}
+--{{{ layout
+layouts ={}
+layouts =
+{
+    awful.layout.suit.tile,
+--    awful.layout.suit.tile.left,
+--    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
+    awful.layout.suit.fair,
+--    awful.layout.suit.fair.horizontal,
+    awful.layout.suit.max,
+--    awful.layout.suit.max.fullscreen,
+--    awful.layout.suit.magnifier,
+    awful.layout.suit.floating
+}
+--}}}
+--{{{ applications menu
 -- http://wiki.github.com/terceiro/awesome-freedesktop
--- applications menu
   require('freedesktop.utils')
   freedesktop.utils.terminal = terminal  -- default: "xterm"
   freedesktop.utils.icon_theme = 'gnome' -- look inside /usr/share/icons/, default: nil (don't use icon theme)
@@ -28,4 +82,4 @@
 --  for s = 1, screen.count() do
 --     freedesktop.desktop.add_desktop_icons({screen = s, showlabels = true})
 --  end
-
+--}}}

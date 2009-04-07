@@ -4,7 +4,6 @@ require("awful")
 require("beautiful")
 -- Notification library
 require("naughty")
-
 -- Load Debian menu entries
 --require("debian.menu")
 
@@ -70,7 +69,7 @@ apptags =
 -- Define if we want to use titlebar on all applications.
 use_titlebar = false
 -- }}}
-require("myvars")
+require("my_vars")
 
 -- {{{ Tags
 ---- Define tags table.
@@ -89,9 +88,7 @@ require("myvars")
 --    tags[s][1].selected = true
 --end
 ---- }}}
-require("mytags")
-require("mymenu")
-
+require("my_tags")
 -- {{{ Wibox
 -- Create a textbox widget
 mytextbox = widget({ type = "textbox", align = "right" })
@@ -418,7 +415,7 @@ awful.hooks.manage.register(function (c, startup)
     -- New floating windows don't cover the wibox and don't overlap until it's unavoidable
     awful.placement.no_offscreen(c)
     awful.placement.no_overlap(c)
-    smart_placement = true
+--    smart_placement = true
     -- 
 
 
@@ -453,6 +450,6 @@ end)
 --    mytextbox.text = os.date(" %a %b %d, %H:%M ")
 -- end)
 -- }}}
-require("keybindings")
-require("mystuff")
+require("my_keybindings")
+require("my_panel")
 

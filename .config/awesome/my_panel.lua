@@ -356,17 +356,15 @@ botbox = {}
 botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "14", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
 -- Add widgets to the wibox - order matters
 botbox[1].widgets = {
-     tb_temp,tb_space,
-     tb_fq,tb_space,
+usemode=="laptop"  and  tb_temp,tb_space or nil,
+usemode=="laptop"  and  tb_fq,tb_space or nil,
      gr_cpu0,tb_space,
      gr_cpu1,tb_space,
      pb_mem,tb_space,
-     pb_bat,tb_bat,
-     tb_mpdbox,
-        pb_volume,
---     essidwidget,tb_spacer, lqbarwidget,tb_spacer, ratewidget, tb_spacer,
+usemode=="laptop" and    pb_bat,tb_bati or nil ,
+     pb_volume,
      tb_date
-        }
+                    }
 botbox[1].screen = 1
 
 --}}}
@@ -375,10 +373,11 @@ botbox[1].screen = 1
 awful.hooks.timer.register(1, hook_timer)
 awful.hooks.timer.register(1, get_mem)
 awful.hooks.timer.register(1, get_cpu)
-awful.hooks.timer.register(1, get_cfreq)
-awful.hooks.timer.register(3, get_bat)
-awful.hooks.timer.register(3, get_temp)
+if usemode=="laptop" then
+	awful.hooks.timer.register(1, get_cfreq)
+	awful.hooks.timer.register(3, get_bat)
+	awful.hooks.timer.register(3, get_temp)
+end
 --}}}
---os.execute("sh ~/.autostart")
 awful.util.spawn("killall xxkb")
 awful.util.spawn("xxkb")

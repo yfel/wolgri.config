@@ -34,6 +34,7 @@ synclient HorizEdgeScroll=0
 synclient VertEdgeScroll=0
 synclient CircularScrolling=0
 ivman &
+xsetroot -cursor_name  redglas
 awesome 2> $HOME/awesome.err&
 lilyterm -t 2 -e screen -ddR grw & 
 nitrogen --restore
