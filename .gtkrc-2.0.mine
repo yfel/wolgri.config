@@ -7,3 +7,9 @@ gtk-toolbar-style=GTK_TOOLBAR_ICONS
 gtk-toolbar-icon-size = GTK_ICON_SIZE_SMALL_TOOLBAR
 gtk-button-images=0
 gtk-can-change-accels = 1
+gtk-entry-select-on-focus = 1
+style "wide-tree"
+{
+      GtkTreeView::expander_size = 20
+}
+class "GtkTreeView" style "wide-tree"

@@ -36,7 +36,7 @@ synclient CircularScrolling=0
 ivman &
 xsetroot -cursor_name  redglas
 awesome 2> $HOME/awesome.err&
-lilyterm -t 2 -e screen -ddR grw & 
+urxvt -e screen -ddR grw & 
 nitrogen --restore
 ## VNC session 
 #x11vnc -usepw -shared -forever > /dev/null &
