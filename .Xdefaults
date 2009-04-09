@@ -11,7 +11,7 @@ XTerm*geometry: 50x25
 URxvt*background:       #10121F
 URxvt*foreground:       white
 !Black text
-URxvt*color0:           white
+URxvt*color0:           gray20
 URxvt*color8:           gray15
 !Red text
 URxvt*color1:           red
@@ -20,11 +20,11 @@ URxvt*color9:           red2
 URxvt*color2:           green
 URxvt*color10:          green2
 !Yellow text
-URxvt*color3:           yellow
-URxvt*color11:          yellow1
+URxvt*color3:           #E5E566
+URxvt*color11:          yellow
 !Blue text
-URxvt*color4:           #0126F2
-URxvt*color12:          #6201F2
+URxvt*color4:           #161640
+URxvt*color12:          blue
 !Magenta text
 URxvt*color5:           magenta2
 URxvt*color13:          magenta

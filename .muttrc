@@ -89,17 +89,17 @@ color header      magenta default "^x-operating-system: *"
 color header      cyan      default  "^x-mailing-list: *"
 color header      blue      default  "^in-reply-to: *"
 
-color quoted brightblue default
+color quoted blue default
 color quoted1 green default
 color quoted2 yellow default
 color signature red default
 color indicator blue white
 color error brightred default
-color status green default
+color status white black
 color tree red default
 color tilde magenta default
 color message brightcyan default
-color markers brightcyan default
+color markers brightblack cyan
 color attachment green default
 color search default green
 color index green default ~N
