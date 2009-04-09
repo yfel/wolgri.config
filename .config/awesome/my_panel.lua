@@ -355,16 +355,26 @@ volume("update", pb_volume);
 botbox = {}
 botbox[1] = wibox({ position = "bottom", name = "botbox" .. 1 , height = "14", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
 -- Add widgets to the wibox - order matters
-botbox[1].widgets = {
-usemode=="laptop"  and  tb_temp,tb_space or nil,
-usemode=="laptop"  and  tb_fq,tb_space or nil,
-     gr_cpu0,tb_space,
-     gr_cpu1,tb_space,
-     pb_mem,tb_space,
-usemode=="laptop" and    pb_bat,tb_bati or nil ,
-     pb_volume,
-     tb_date
-                    }
+if usemode=="laptop" then 
+	botbox[1].widgets = {
+	tb_temp,tb_space,
+	tb_fq,tb_space,
+	gr_cpu0,tb_space,
+	gr_cpu1,tb_space,
+	pb_mem,tb_space,
+	pb_bat,tb_space,tb_bat,
+	pb_volume,
+	tb_date
+	   }
+   else	   
+	botbox[1].widgets = {
+	gr_cpu0,tb_space,
+	gr_cpu1,tb_space,
+	pb_mem,tb_space,
+	pb_volume,
+	tb_date
+	   }
+   end
 botbox[1].screen = 1
 
 --}}}
