@@ -6,12 +6,6 @@ export GTK_MODULES=winmenu
 export OOO_FORCE_DESKTOP="gnome"
 export MOZ_DISABLE_PANGO=1
 
-#export LC_CTYPE="en_US.utf8"
-#export XMODIFIERS=@im=SCIM
-#export GTK_IM_MODULE="scim"
-#export QT_IM_MODULE="scim-bridge"
-#scim -d
-
 xset fp+ /home/wolgri/.fonts/ 
 xset fp rehash
 xrdb $HOME/.Xdefaults
@@ -33,13 +27,21 @@ synclient VertTwoFingerScroll=0
 synclient HorizEdgeScroll=0
 synclient VertEdgeScroll=0
 synclient CircularScrolling=0
+
 ivman &
 xsetroot -cursor_name  redglas
+
 awesome 2> $HOME/awesome.err&
+
 urxvt -e screen -ddR grw & 
+
 nitrogen --restore
+
 ## VNC session 
 #x11vnc -usepw -shared -forever > /dev/null &
+
 wicd-client&
+
 wwwfox&
+# the last is xscreensaver for locking session 
 exec xscreensaver

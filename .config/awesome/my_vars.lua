@@ -3,6 +3,7 @@ screensaver= "xscreensaver-command -lock"
 home_dir = os.getenv("HOME")
 usetags="mytags"
 usemode="laptop"
+use_titlebar_floatapp=true
 --{{{ Beutiful
 theme_path = awful.util.getdir("config") .. "/themes/wolgri/theme"
 beautiful.init(theme_path)
@@ -14,7 +15,7 @@ floatapps =
     -- by class
     ["MPlayer"] = true,
     ["pinentry"] = true,
---    ["gimp"] = true,
+    ["gimp"] = true,
     ["wicd-client.py"] = true,
 
     -- by instance

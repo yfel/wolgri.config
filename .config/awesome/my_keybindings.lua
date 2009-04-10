@@ -16,7 +16,6 @@ table.insert(globalkeys, key({ modkey, "Control" }, "Up", function () awful.tag.
 table.insert(globalkeys, key({"Control"}, "Escape", function () awful.util.spawn(screensaver) end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Left", function () awful.client.focus.byidx(1); client.focus:lower() end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Right", function () awful.client.focus.byidx(1); client.focus:raise() end))
-table.insert(globalkeys, key({ modkey }, "F3", function () awful.util.spawn("mocp -G") end))
 table.insert(clientkeys, key({ modkey, "Shift" }, "t", function (c) if c.titlebar then awful.titlebar.remove(c) else awful.titlebar.add(c, { modkey = "Mod1" }) end end))
 --}}}
 --{{{ Move resize 
@@ -73,4 +72,45 @@ table.insert(globalkeys, key({ modkey, "Shift" }, "Tab", function ()
     awful.client.focus.byidx(-1)
   end))
 --}}}
+-- Show some client infos in a naughy box--{{{
+-- Collect client infos
+function get_fixed_client_infos(c)
+    local txt = ""
+    if c.name then txt = txt .."Name:".. c.name .. "\n" end
+    if c.pid then txt = txt .."PID:".. c.pid .. "\n" end
+    if c.class then txt = txt .."Class:".. c.class .. "\n" end
+    if c.instance then txt = txt .."Instance:".. c.instance .. "\n" end
+    if c.role then txt = txt .."Role:".. c.role .. "\n" end
+    if c.type then txt = txt .."Type:".. c.type .. "\n" end
+    return txt
+end
+
+function get_dyn_client_infos(c)
+    local txt = ""
+    if c.screen then txt = txt .."Screen: ".. c.screen .. "\n" end
+    if awful.client.floating.get(c) then txt = txt .."Floating\n" end
+    if c.ontop then txt = txt .."On top\n" end
+    if c.fullscreen then txt = txt .."Fullscreen\n" end
+    if c.titlebar then txt = txt .."Titlebar\n" end
+    if c.opacity then txt = txt .. "Opacity: " .. c.opacity .. "\n" end
+    if c.icon_path then txt = txt .."Icon_path: ".. c.icon_path .. "\n" end
+    return txt
+end
+
+
+function show_client_infos(c)
+    local c
+    if _c then
+        c = _c
+    else
+        c = client.focus
+    end
+    txt = get_fixed_client_infos(c)
+    txt = txt .. "\n" .. get_dyn_client_infos(c)
+    naughty.notify({ title = "Client info", text = txt, timeout = 6 })
+end
+table.insert(globalkeys, key({ modkey, "Control" }, "i", show_client_infos))
+
+--}}}
+
 root.keys(globalkeys)
