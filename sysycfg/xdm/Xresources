@@ -1,0 +1,52 @@
+Xlogin*login.translations:#override \
+	CtrlR:abort-display()\n\
+	F1:set-session-argument(failsafe) finish-field()\n\
+	Return:set-session-argument() finish-field()
+	CtrlReturn:set-session-argument(failsafe) finish-field()\n\
+
+Xlogin*greeting:
+!Xlogin*greeting:CLIENTHOST
+Xlogin*namePrompt:Username:\040
+Xlogin*passwdPrompt:Password:\040
+Xlogin*fail:incorrect
+Xlogin*greetFace:Terminus-14:style=bold
+Xlogin*promptFace:Terminus-12:style=Bold
+Xlogin*face:Terminus-10
+Xlogin*failFace:Terminus-14:style=Bold
+Xlogin*shdColor:gray20
+Xlogin*hiColor:gray20
+Xlogin*greetColor:white
+Xlogin*promptColor:grey80
+Xlogin*failColor:red
+Xlogin*geometry:300x200+0-5
+*borderWidth:0
+*foreground:white
+*background:gray10
+
+XClock*analog:false
+XClock*strftime:(%A)\040%F\040%T
+XClock*update:1
+XClock*render:false
+XClock*font:-xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1
+XClock.width: 600
+XClock*geometry: +0+0
+
+Xmessage*message.scrollVertical:auto
+Xmessage*message.scrollHorizontal:never
+Xmessage*Command.highlightThickness:0
+Xmessage*Command.internalWidth:8
+Xmessage*Command.internalHeight:8
+Xmessage*Command.shapeStyle:rectangle
+Xmessage*Command.font:-xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1
+Xmessage*font:-xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1
+
+XConsole*verbose:true
+XConsole*exitOnFail:true
+
+Chooser*geometry:700x550
+Chooser*allowShellResize:false
+Chooser*viewport.forceBars:true
+Chooser*label.font:-*-terminus-*-*-*-*-*-*-*-*-*-*-*
+Chooser*label.label:XDMCP\040Host\040Menu\040from\040CLIENTHOST
+Chooser*list.font:-*-terminus-*-*-*-*-*-*-*-*-*-*-*
+Chooser*Command.font:-*-terminus-*-*-*-*-*-*-*-*-*-*-*

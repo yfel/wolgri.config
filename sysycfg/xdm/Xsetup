@@ -1,0 +1,8 @@
+#!/bin/sh
+
+## the root window should have this color
+xsetroot -solid "gray10" -cursor_name left_ptr
+## these are all optional
+/etc/X11/xdm/buttons -geometry -0-0 &
+xclock -bg gray10 -fg gray80 &
+#xconsole -daemon -geometry 640x200-0+0
