@@ -1,2 +1,3 @@
 #!/bin/sh
-$HOME/stuff/firefox/firefox/firefox -P www
+#$HOME/stuff/firefox/firefox/firefox -P www
+iceweasel -P www

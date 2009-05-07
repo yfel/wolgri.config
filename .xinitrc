@@ -28,7 +28,7 @@ synclient HorizEdgeScroll=0
 synclient VertEdgeScroll=0
 synclient CircularScrolling=0
 
-ivman &
+##ivman &
 xsetroot -cursor_name  redglas
 
 awesome 2> $HOME/awesome.err&

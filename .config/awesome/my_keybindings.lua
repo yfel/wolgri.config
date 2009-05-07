@@ -17,6 +17,18 @@ table.insert(globalkeys, key({"Control"}, "Escape", function () awful.util.spawn
 table.insert(globalkeys, key({ modkey, "Shift" }, "Left", function () awful.client.focus.byidx(1); client.focus:lower() end))
 table.insert(globalkeys, key({ modkey, "Shift" }, "Right", function () awful.client.focus.byidx(1); client.focus:raise() end))
 table.insert(clientkeys, key({ modkey, "Shift" }, "t", function (c) if c.titlebar then awful.titlebar.remove(c) else awful.titlebar.add(c, { modkey = "Mod1" }) end end))
+
+-- {{{ Toggle ontop
+table.insert(clientkeys, key({ modkey }, "a",
+    function (c)
+        if c.ontop then
+            c.ontop = false
+        else
+            c.ontop = true
+        end
+    end))
+-- }}}
+
 --}}}
 --{{{ Move resize 
 table.insert(globalkeys, key({ modkey, "Control" }, "Up", function () awful.client.moveresize(0, 0, 0, -10) end))

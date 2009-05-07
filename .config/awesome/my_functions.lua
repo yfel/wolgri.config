@@ -102,8 +102,8 @@ end
     -- 
     -- New floating windows don't cover the wibox and don't overlap until it's unavoidable
     awful.placement.no_offscreen(c)
-    awful.placement.no_overlap(c)
---    smart_placement = true
+--    awful.placement.no_overlap(c)
+    smart_placement = true
     -- 
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
