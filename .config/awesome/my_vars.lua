@@ -5,7 +5,7 @@ usetags="mytags"
 usemode="laptop"
 use_titlebar_floatapp=true
 --{{{ Beutiful
-theme_path = awful.util.getdir("config") .. "/themes/wolgri/theme"
+theme_path = awful.util.getdir("config") .. "/themes/wolgri/theme.lua"
 beautiful.init(theme_path)
 --}}}
 --{{{ Windows 
