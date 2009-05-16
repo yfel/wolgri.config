@@ -1,4 +1,6 @@
 terminal = "urxvt"
+wwwbrowser = "wwwfox"
+emailclient = "urxvt -e mutt"
 screensaver= "xscreensaver-command -lock"
 home_dir = os.getenv("HOME")
 usetags="mytags"
@@ -32,7 +34,9 @@ apptags =
      ["lilyterm"] = { screen = 1, tag = 1 },
      ["vmware"] = { screen = 1, tag = 5 },
      ["VirtualBox"] = { screen = 1, tag = 5 },
-     ["gajim.py"] = { screen = 1, tag = 3 },
+     ["gajim.py"] = { screen = 1, tag = 7 },
+     ["pidgin"] = { screen = 1, tag = 7 },
+
 
 
 }

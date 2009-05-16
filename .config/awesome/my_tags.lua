@@ -38,5 +38,9 @@ if usetags=="mytags" then
    tags[1][6].screen = 1
    awful.layout.set(layouts[1], tags[1][6])
 
+   tags[1][7] = tag("im")
+   tags[1][7].screen = 1
+   awful.layout.set(layouts[1], tags[1][7])
+
    tags[1][1].selected = true
 end
