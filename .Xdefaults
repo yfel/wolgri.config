@@ -5,7 +5,7 @@ XTerm*foreground: orange
 XTerm*colorAttrMode: on
 XTerm*eightBitInput:   true
 XTerm*metaSendsEscape: true
-XTerm*geometry: 50x25
+!XTerm*geometry: 50x25
 
 ! URXVT Colors
 URxvt*background:       #10121F

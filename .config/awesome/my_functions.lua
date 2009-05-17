@@ -131,4 +131,3 @@ awful.hooks.arrange.register(function (screen)
     end
 end)
 --}}}
---}}}

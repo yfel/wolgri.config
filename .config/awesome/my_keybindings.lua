@@ -203,14 +203,7 @@ table.insert(globalkeys, key({ modkey, "Control" }, "i", show_client_infos))
 
 --}}}
 -- {{{ Toggle ontop
-table.insert(clientkeys, key({ modkey }, "a",
-    function (c)
-        if c.ontop then
-            c.ontop = false
-        else
-            c.ontop = true
-        end
-    end))
+table.insert(clientkeys, key({ modkey }, "a", function (c) if c.ontop then c.ontop = false else c.ontop = true end end))
 -- }}}
 
 table.insert(clientkeys, key({ modkey, "Shift" }, "t", function (c) if c.titlebar then awful.titlebar.remove(c) else awful.titlebar.add(c, { modkey = "Mod1" }) end end))
