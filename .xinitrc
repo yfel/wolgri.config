@@ -32,6 +32,7 @@ synclient CircularScrolling=0
 xsetroot -cursor_name  redglas
 
 awesome 2> $HOME/awesome.err&
+#openbox&
 
 urxvt -e screen -ddR grw & 
 
