@@ -128,11 +128,11 @@ table.insert(globalkeys, key({none}, "XF86AudioNext", function () awful.util.spa
 table.insert(globalkeys, key({none}, "XF86AudioStop", function () awful.util.spawn("mpc --no-status stop ") end))
 table.insert(globalkeys, key({none}, "XF86AudioPrev", function () awful.util.spawn("mpc --no-status prev ") end))
 table.insert(globalkeys, key({none}, "XF86Sleep", function () awful.util.spawn("sudo pm-suspend --quirk-dpms-on --quirk-vbestate-restore --quirk-vbemode-restore") end))
-table.insert(globalkeys, key({none}, "XF86HomePage", function () awful.util.spawn("sudo cpufreq-set -g ondemand") end))
-table.insert(globalkeys, key({none}, "XF86Start", function () awful.util.spawn("sudo cpufreq-set -g powersave") end))
+table.insert(globalkeys, key({none}, "XF86Start", function () awful.util.spawn("sudo cpufreq-set -g ondemand") end))
+table.insert(globalkeys, key({none}, "XF86Battery", function () awful.util.spawn("sudo cpufreq-set -g powersave") end))
 table.insert(globalkeys, key({none}, "XF86WWW", function () awful.util.spawn(wwwbrowser) end))
 table.insert(globalkeys, key({none}, "XF86Mail", function () awful.util.spawn(emailclient) end))
-table.insert(globalkeys, key({none}, "XF86Messenger", function () mymainmenu:show(true) end))
+table.insert(globalkeys, key({none}, "XF86Launch1", function () mymainmenu:show(true) end))
 --}}}
 --{{{ rotate clients and focus master...
 table.insert(globalkeys, key({ modkey }, "Tab", function ()
