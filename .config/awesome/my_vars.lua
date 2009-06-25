@@ -19,6 +19,9 @@ floatapps =
     ["pinentry"] = true,
     ["gimp"] = true,
     ["wicd-client.py"] = true,
+    ["gajim.py"] = true,
+    ["pidgin"] = true,
+
 
     -- by instance
     ["mocp"] = true
