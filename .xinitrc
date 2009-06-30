@@ -5,6 +5,7 @@ export LC_ALL=uk_UA.UTF-8
 export GTK_MODULES=winmenu 
 export OOO_FORCE_DESKTOP="gnome"
 export MOZ_DISABLE_PANGO=1
+export LIBGL_ALWAYS_INDIRECT=1
 xset fp+ /home/wolgri/.fonts/ 
 xset fp rehash
 xrdb $HOME/.Xdefaults
@@ -13,7 +14,7 @@ unclutter -root -idle 5 &
 xsetroot -solid '#222222'
 autocutsel -s PRIMARY -buttonup -fork
 # XKB
-#setxkbmap -option grp:caps_toggle,lv3:ralt_switch,grp_led:scroll 'us,ua,ru'
+setxkbmap -option grp:caps_toggle,lv3:ralt_switch,grp_led:scroll 'us,ua,ru'
 #Synaptic
 syndaemon -d 
 synclient HorizTwoFingerScroll=0
@@ -27,7 +28,7 @@ termit -e "screen -ddR grw"&
 nitrogen --restore
 ## VNC session 
 #x11vnc -usepw -shared -forever > /dev/null &
-wicd-client&
+#wicd-client&
 wwwfox&
 # the last is xscreensaver for locking session 
 xscreensaver&
@@ -37,3 +38,4 @@ exec awesome
 #superswitcher -t&
 #conky&
 #exec openbox
+#exec startxfce4
