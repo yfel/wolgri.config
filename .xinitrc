@@ -28,7 +28,7 @@ termit -e "screen -ddR grw"&
 nitrogen --restore
 ## VNC session 
 #x11vnc -usepw -shared -forever > /dev/null &
-#wicd-client&
+wicd-client&
 wwwfox&
 # the last is xscreensaver for locking session 
 xscreensaver&

@@ -44,9 +44,9 @@ URxvt*title: Terminal
 URxvt.geometry: 80x30
 URxvt.scrollBar:        false
 URxvt.xftAntialias:     true
-URxvt.font: xft:Lucida Sans Typewriter:style=normal:pixelsize=11
+URxvt.font: xft:Lucida Sans Typewriter:style=normal:pixelsize=13
 !URxvt.font:     -xos4-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
-URxvt.boldFont: xft:Lucida Sans Typewriter:style=Bold:pixelsize=11
+URxvt.boldFont: xft:Lucida Sans Typewriter:style=Bold:pixelsize=13
 
 
 
