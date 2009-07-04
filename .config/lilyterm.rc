@@ -264,13 +264,13 @@ reset_font_size = Ctrl Return
 #    Use it if you not sure.
 
 # The web browser using for http(s)://
-web_browser = swiftfox
+web_browser = firefox
 web_method = 1
 web_VTE_CJK_WIDTH = 0
 web_environ = 
 
 # The ftp client using for ftp(s)://
-ftp_client = swiftfox
+ftp_client = firefox
 ftp_method = 1
 ftp_VTE_CJK_WIDTH = 0
 ftp_environ = 
