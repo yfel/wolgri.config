@@ -14,7 +14,7 @@ export LC_ALL=uk_UA.UTF-8
 export GTK2_RC_FILES=$HOME/.gtkrc-2.0
 export EDITOR="vim"
 export MOZ_DISABLE_PANGO=1
-export GTK_MODULES=winmenu 
+#export GTK_MODULES=winmenu 
 #}}}
 
 eval `dircolors -b ~/.dircolors`
@@ -176,7 +176,7 @@ function search()
 if [[ ${EUID} == 0 ]] ; then
 	PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[0m\] '
 else
-    PS1="\[\033[0;36m\]\u@\h\[\033[02;31m\] \W \n# \[\033[0m\]"
+    PS1="\[\033[0;36m\]\u@\h\[\033[01;31m\] \W \n# \[\033[0m\]"
 fi
 
 

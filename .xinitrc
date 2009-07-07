@@ -2,11 +2,11 @@ export PATH=$PATH:$HOME/bin:$HOME/scripts
 export DISPLAY=":0"
 export LANG=uk_UA.UTF-8
 export LC_ALL=uk_UA.UTF-8
-export GTK_MODULES=winmenu 
+#export GTK_MODULES=winmenu 
 export OOO_FORCE_DESKTOP="gnome"
 export MOZ_DISABLE_PANGO=1
 export LIBGL_ALWAYS_INDIRECT=1
-#sh $HOME/.autostart
-exec xterm
+sh $HOME/.autostart
+#exec xterm
 exec awesome
 #exec openbox-session

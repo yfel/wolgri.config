@@ -93,13 +93,13 @@ set smartindent
 " do c-style indenting
 set cindent
 " tab spacing (settings below are just to unify it)
-set tabstop=8
+set tabstop=4
 " unify
-set softtabstop=8
+set softtabstop=4
 " unify
-set shiftwidth=8
+set shiftwidth=4
 " real tabs please!
-set noexpandtab
+set expandtab
 " do not wrap lines
 set nowrap
 " use tabs at the start of a line, spaces elsewhere

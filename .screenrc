@@ -1,4 +1,4 @@
-shell /bin/zsh
+#shell /bin/zsh
 termcapinfo rxvt|rxvt-unicode|urxvt|rxvt-256color|screen|xs|rxvt ti@:te@
 nethack               on
 autodetach            on              # Standard: on
