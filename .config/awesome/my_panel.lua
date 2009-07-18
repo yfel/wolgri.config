@@ -389,5 +389,4 @@ if usemode=="laptop" then
 	awful.hooks.timer.register(3, get_temp)
 end
 --}}}
-awful.util.spawn("killall xxkb")
-awful.util.spawn("xxkb")
+

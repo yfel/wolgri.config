@@ -6,7 +6,7 @@ export LC_ALL=uk_UA.UTF-8
 export OOO_FORCE_DESKTOP="gnome"
 export MOZ_DISABLE_PANGO=1
 export LIBGL_ALWAYS_INDIRECT=1
-sh $HOME/.autostart
-#exec xterm
-exec awesome
+#sh $HOME/.autostart&
+exec xterm
+#exec awesome
 #exec openbox-session

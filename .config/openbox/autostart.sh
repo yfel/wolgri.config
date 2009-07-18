@@ -6,7 +6,9 @@ lxde-settings-daemon&
 conky&
 lxpanel&
 xsetroot -solid \#192024
-xscreensaver-command -lock
+#xscreensaver-command -lock
+gnome-screensaver-command -lock
+wicd-client&
 #xfce4-panel&
 #/home/wolgri/stuff/visibility/visibility.py&
 #/home/wolgri/scripts/logterm&

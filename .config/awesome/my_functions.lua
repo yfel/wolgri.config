@@ -131,3 +131,11 @@ awful.hooks.arrange.register(function (screen)
     end
 end)
 --}}}
+--{{{ startup
+local function autorun()
+    awful.util.spawn("killall xxkb")
+    awful.util.spawn("xxkb")
+    awful.util.spawn("killall wicd-client")
+    awful.util.spawn("wicd-client")
+end
+--}}}

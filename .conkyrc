@@ -1,7 +1,7 @@
 background no
 # Use Xft?
 use_xft yes
-xftfont Bitstream Vera Sans Mono:size=12
+xftfont Liberation Mono:style=Regular:size=13
 
 # Text alpha when using Xft
 xftalpha 0.8
@@ -46,7 +46,7 @@ own_window_colour hotpink
 double_buffer yes
 
 # Minimum size of text area
-minimum_size 600 500
+minimum_size 600 300
 
 # Draw shades?
 draw_shades yes
@@ -104,7 +104,7 @@ net_avg_samples 2
 override_utf8_locale no
 
 # Add spaces to keep things from moving about?  This only affects certain objects.
-use_spacer yes
+use_spacer left
 
 # Shows the maximum value in scaled graphs.
 show_graph_scale no
@@ -135,7 +135,7 @@ max_user_text 16384
 # stuff after 'TEXT' will be formatted on screen
 
 TEXT
-${freq_g} gHZ${cpugraph cpu1 log 16,50 0000ff 00ff00 30}${offset 5}${cpugraph cpu2 log 16,50 0000ff 00ff00 30}$color ${memperc}%${membar 10,50} 
-${voffset -20}${offset 100}${cpu cpu1}%${offset 20}${cpu cpu2}% ${color red}
+${freq_g} gHZ${cpugraph log cpu1 16,50 0000ff 00ff00}${offset 5}${cpugraph log cpu2 16,50 0000ff 00ff00}$color ${memperc}%${membar 10,50} 
+${voffset -20}${offset 90}${cpu cpu1}%${offset 10}${cpu cpu2}% ${color red}
 $color${battery BAT1} ${battery_bar 8,50 BAT1} ${wireless_essid wlan0} ${wireless_bitrate wlan0} ${wireless_link_bar 12,50 wlan0} 
 ${mpd_smart 300} ${mpd_status} 

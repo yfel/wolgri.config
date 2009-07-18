@@ -31,9 +31,9 @@
 !     Fn + F1
 !    keycode 134 = XF86Search
 !     Fn + F2
-    keycode 149 = XF86Start
+!    keycode 149 = XF86Start
 !     Fn + F3
-    keycode 244 = XF86Battery
+!    keycode 244 = XF86Battery
 !     Fn + F5 - Display Toggle
 !    keycode 191 =
 !     Fn + F7 - Touchpad Disable
@@ -47,6 +47,6 @@
 !    keycode 158 =
 !    keycode 161 =
 !    Acer Arcade Utility
-    keycode 159 = XF86Launch1
+!    keycode 159 = XF86Launch1
 !    Acer Empowering Tech - reboot
 !    keycode 227 = XF86PowerDown
