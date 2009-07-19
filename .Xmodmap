@@ -47,6 +47,6 @@
 !    keycode 158 =
 !    keycode 161 =
 !    Acer Arcade Utility
-!    keycode 159 = XF86Launch1
+    keycode 159 = XF86Launch1
 !    Acer Empowering Tech - reboot
 !    keycode 227 = XF86PowerDown
